@@ -2,14 +2,14 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Login";
-import Main from "./components/Main";
+import Home from "./components/Home";
 
 const RouteSwitch = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
