@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { sizes, devices } from "../styling";
+// import { sizes, devices } from "../styling";
 import birdhouseIcon from "../img/icons8-birdhouse-30.png";
 import searchIcon from "../img/icons8-magnifying-glass-64.png";
 import bellIcon from "../img/icons8-bell-64.png";
@@ -16,7 +16,7 @@ const StyledFooter = styled.div`
   height: 6vh;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid darkgrey;
+  border-top: 1px solid lightgrey;
 `;
 
 const IconDiv = styled.div`

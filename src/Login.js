@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { sizes, devices } from "./styling";
+// import { sizes, devices } from "./styling";
 
 const Maindiv = styled.div`
   height: 100vh;
@@ -28,7 +28,7 @@ const Subheading = styled.h3`
 const StyledButton = styled.button`
   background-color: #1da1f2;
   color: white;
-  font-family: inherit;
+  font-family: "Roboto", "IBM Plex Sans", sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   padding: 0.5rem;
@@ -82,3 +82,4 @@ const Login = () => {
 };
 
 export default Login;
+export { StyledButton };

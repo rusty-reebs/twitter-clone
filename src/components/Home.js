@@ -1,10 +1,12 @@
 // Main.js
 
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { sizes, devices } from "../styling";
-import avatarPic from "../img/tshirt-1.jpg";
+// import { sizes, devices } from "../styling";
+import Header from "./Header";
 import Footer from "./Footer";
+import Tweet from "./Tweet";
 
 const Container = styled.div`
   height: 100vh;
@@ -14,32 +16,10 @@ const Container = styled.div`
   padding: 0;
   font-family: "Roboto", "IBM Plex Sans", sans-serif;
   display: flex;
+  flex-direction: column;
 `;
 
-const Header = styled.div`
-  position: sticky;
-  top: 0;
-  height: 8vh;
-  width: 100%;
-  display: flex;
-  gap: 1rem;
-  border-bottom: 1px solid darkgrey;
-`;
-
-const Avatar = styled.div`
-  width: 10%;
-  // border-radius: 50%;
-  position: relative;
-`;
-
-const AvatarImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const ComposeIcon = styled.div`
+const StyledComposeLink = styled(Link)`
   background-color: #1da1f2;
   height: 3rem;
   width: 3rem;
@@ -51,6 +31,7 @@ const ComposeIcon = styled.div`
   line-height: 3rem;
   color: white;
   font-size: xx-large;
+  text-decoration: none;
 `;
 
 const Home = (props) => {
@@ -60,13 +41,9 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Header>
-        <Avatar>
-          <AvatarImg src={avatarPic} height={30} alt="avatar" />
-        </Avatar>
-        <h3>Home</h3>
-      </Header>
-      <ComposeIcon>+</ComposeIcon>
+      <Header />
+      <Tweet />
+      <StyledComposeLink to="/compose">+</StyledComposeLink>
       <Footer />
     </Container>
   );
