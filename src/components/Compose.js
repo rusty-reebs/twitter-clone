@@ -1,8 +1,8 @@
 // Compose.js
 
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { sizes, devices } from "../styling";
 import { StyledHeader, HeaderImg } from "./Header";
 import { StyledButton } from "../Login";
@@ -83,13 +83,22 @@ const StyledSpan = styled.span`
 `;
 
 const Compose = (props) => {
+  const location = useLocation();
+  console.log(location.state);
+  //   console.log(props.location.handleChange);
+  const handleChange = props.handleChange;
+  const handleSubmit = props.handleSubmit;
+  //   useEffect(() => {
+  // console.log(handleSubmit);
+  //   });
+
   return (
     <div>
       <StyledHeader>
         <StyledBackLink to="/home">
           <HeaderImg src={backIcon} height={30} alt="back" />
         </StyledBackLink>
-        <TweetButton>Tweet</TweetButton>
+        <TweetButton onClick={handleSubmit}>Tweet</TweetButton>
       </StyledHeader>
       <StyledDiv>
         <ComposeAvatarDiv>
@@ -99,6 +108,8 @@ const Compose = (props) => {
           type="text"
           placeholder="What's happening?"
           wrap="soft"
+          value={props.value}
+          onChange={handleChange}
         />
       </StyledDiv>
       <StyledIconsDiv>

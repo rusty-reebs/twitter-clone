@@ -2,6 +2,7 @@
 
 const tweets = [
   {
+    id: 1,
     name: "jeck",
     username: "@jeck",
     time: "1m",
@@ -12,13 +13,14 @@ const tweets = [
     likes: "1K",
   },
   {
-    name: "Rusty Reebs",
+    id: 2,
+    name: "Rusty",
     username: "@rusty",
     time: "2h",
-    content: "Bitcoin, LFG! 🚀",
-    comments: "10K",
-    retweets: "15K",
-    likes: "100K",
+    content: "Written in ⚛️React with styled components.",
+    comments: "101",
+    retweets: "1.5K",
+    likes: "10K",
   },
 ];
 

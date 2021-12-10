@@ -1,12 +1,14 @@
 // Main.js
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import Header from "./Header";
 import Footer from "./Footer";
 import Tweet from "./Tweet";
+
+import tweets from "./sample-tweets";
 
 const Container = styled.div`
   height: 100vh;
@@ -34,16 +36,65 @@ const StyledComposeLink = styled(Link)`
   text-decoration: none;
 `;
 
+const sampleUser = { name: "Rusty", username: "@rusty" };
+
 const Home = (props) => {
+  const [content, setContent] = useState(tweets);
+  const [currentUser, setCurrentUser] = useState(sampleUser);
+
   useEffect(() => {
     document.title = "Home / Tweeter";
   });
 
+  // useEffect(() => {
+  // function to add newTweet to content
+  // }, [newTweet]);
+
+  let newTweet = {};
+  const handleChange = (e) => {
+    newTweet.name = currentUser.name;
+    newTweet.username = currentUser.username;
+    newTweet.content = e.target.value;
+    console.log(newTweet);
+    // setContent((prev) => {
+    // prev.unshift(newTweet);
+    // });
+  };
+
+  const handleSubmit = (e) => {
+    console.log("submit!");
+    e.preventDefault();
+    // addTweet to db
+  };
+
   return (
     <Container>
       <Header />
-      <Tweet />
-      <StyledComposeLink to="/compose">+</StyledComposeLink>
+      {content.map((each) => {
+        return (
+          <Tweet
+            key={each.id}
+            name={each.name}
+            username={each.username}
+            time={each.time}
+            content={each.content}
+            comments={each.comments}
+            retweets={each.retweets}
+            likes={each.likes}
+          />
+        );
+      })}
+      <StyledComposeLink
+        to={{
+          pathname: "/compose",
+          state: {
+            handleChange: { handleChange },
+            handleSubmit: { handleSubmit },
+          },
+        }}
+      >
+        +
+      </StyledComposeLink>
       <Footer />
     </Container>
   );

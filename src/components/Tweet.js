@@ -24,6 +24,7 @@ const StyledContentDiv = styled.div`
   flex-direction: column;
   gap: 0.3rem;
   width: 85%;
+  padding-right: 0.6rem;
 `;
 
 const TweetAvatarDiv = ComposeAvatarDiv;
@@ -33,7 +34,7 @@ const TweetAvatarImg = styled(ComposeAvatarImg)`
 
 const Tweet = (props) => {
   return (
-    <TweetDiv>
+    <TweetDiv key={props.id}>
       <StyledDiv>
         <TweetAvatarDiv>
           <TweetAvatarImg src={tshirtAvatar} height={30} alt="avatar" />
@@ -41,21 +42,22 @@ const Tweet = (props) => {
         <StyledContentDiv>
           <div>
             <p>
-              <strong>Rusty Reebs</strong> @rusty_reebs 15m
+              <strong>{props.name}</strong>
+              &nbsp;{props.username}&nbsp;&nbsp;{props.time}
             </p>
           </div>
           <div>
-            <p>Just setting up my twtr.</p>
+            <p>{props.content}</p>
           </div>
         </StyledContentDiv>
       </StyledDiv>
       <StyledIconsDiv>
         <img src={commentIcon} height={20} alt="comment" />
-        <p>4</p>
+        <p>{props.comments}</p>
         <img src={retweetIcon} height={20} alt="retweet" />
-        <p>12</p>
+        <p>{props.retweets}</p>
         <img src={heartIcon} height={20} alt="heart" />
-        <p>24</p>
+        <p>{props.likes}</p>
         <img src={shareIcon} height={20} alt="share" />
       </StyledIconsDiv>
     </TweetDiv>
