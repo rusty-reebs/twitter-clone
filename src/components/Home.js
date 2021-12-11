@@ -1,12 +1,12 @@
 // Main.js
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import Header from "./Header";
 import Footer from "./Footer";
 import Tweet from "./Tweet";
+import Compose from "./Compose";
 
 import tweets from "./sample-tweets";
 
@@ -21,7 +21,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const StyledComposeLink = styled(Link)`
+const StyledComposeButton = styled.div`
   background-color: #1da1f2;
   height: 3rem;
   width: 3rem;
@@ -41,14 +41,11 @@ const sampleUser = { name: "Rusty", username: "@rusty" };
 const Home = (props) => {
   const [content, setContent] = useState(tweets);
   const [currentUser, setCurrentUser] = useState(sampleUser);
+  const [toggleCompose, setToggleCompose] = useState(false);
 
   useEffect(() => {
     document.title = "Home / Tweeter";
   });
-
-  // useEffect(() => {
-  // function to add newTweet to content
-  // }, [newTweet]);
 
   let newTweet = {};
   const handleChange = (e) => {
@@ -67,35 +64,39 @@ const Home = (props) => {
     // addTweet to db
   };
 
+  const handleCompose = () => {
+    setToggleCompose((previous) => !previous);
+  };
+
   return (
     <Container>
-      <Header />
-      {content.map((each) => {
-        return (
-          <Tweet
-            key={each.id}
-            name={each.name}
-            username={each.username}
-            time={each.time}
-            content={each.content}
-            comments={each.comments}
-            retweets={each.retweets}
-            likes={each.likes}
-          />
-        );
-      })}
-      <StyledComposeLink
-        to={{
-          pathname: "/compose",
-          state: {
-            handleChange: { handleChange },
-            handleSubmit: { handleSubmit },
-          },
-        }}
-      >
-        +
-      </StyledComposeLink>
-      <Footer />
+      {!toggleCompose ? (
+        <>
+          <Header />
+          {content.map((each) => {
+            return (
+              <Tweet
+                key={each.id}
+                name={each.name}
+                username={each.username}
+                time={each.time}
+                content={each.content}
+                comments={each.comments}
+                retweets={each.retweets}
+                likes={each.likes}
+              />
+            );
+          })}
+          <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>
+          <Footer />
+        </>
+      ) : (
+        <Compose
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          handleCompose={handleCompose}
+        />
+      )}
     </Container>
   );
 };

@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
 // import { sizes, devices } from "../styling";
 import { StyledHeader, HeaderImg } from "./Header";
 import { StyledButton } from "../Login";
@@ -15,7 +14,7 @@ const TweetButton = styled(StyledButton)`
   padding-right: 1rem;
 `;
 
-const StyledBackLink = styled(Link)`
+const StyledBackArrow = styled.div`
   width: 10%;
   position: relative;
 `;
@@ -83,9 +82,6 @@ const StyledSpan = styled.span`
 `;
 
 const Compose = (props) => {
-  const location = useLocation();
-  console.log(location.state);
-  //   console.log(props.location.handleChange);
   const handleChange = props.handleChange;
   const handleSubmit = props.handleSubmit;
   //   useEffect(() => {
@@ -95,9 +91,9 @@ const Compose = (props) => {
   return (
     <div>
       <StyledHeader>
-        <StyledBackLink to="/home">
+        <StyledBackArrow onClick={props.handleCompose}>
           <HeaderImg src={backIcon} height={30} alt="back" />
-        </StyledBackLink>
+        </StyledBackArrow>
         <TweetButton onClick={handleSubmit}>Tweet</TweetButton>
       </StyledHeader>
       <StyledDiv>
