@@ -17,6 +17,7 @@ const StyledFooter = styled.div`
   display: flex;
   justify-content: space-around;
   border-top: 1px solid lightgrey;
+  z-index: 100;
 `;
 
 const IconDiv = styled.div`

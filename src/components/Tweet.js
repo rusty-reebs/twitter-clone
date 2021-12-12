@@ -17,6 +17,7 @@ import shareIcon from "../img/share.png";
 
 const TweetDiv = styled.div`
   border-bottom: 0.5px solid lightgrey;
+  z-index: -1;
 `;
 
 const StyledContentDiv = styled.div`
@@ -32,9 +33,15 @@ const TweetAvatarImg = styled(ComposeAvatarImg)`
   top: 50%;
 `;
 
+const TweetIconsDiv = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  width: 4rem;
+`;
+
 const Tweet = (props) => {
   return (
-    <TweetDiv key={props.id}>
+    <TweetDiv>
       <StyledDiv>
         <TweetAvatarDiv>
           <TweetAvatarImg src={tshirtAvatar} height={30} alt="avatar" />
@@ -52,12 +59,30 @@ const Tweet = (props) => {
         </StyledContentDiv>
       </StyledDiv>
       <StyledIconsDiv>
-        <img src={commentIcon} height={20} alt="comment" />
-        <p>{props.comments}</p>
-        <img src={retweetIcon} height={20} alt="retweet" />
-        <p>{props.retweets}</p>
-        <img src={heartIcon} height={20} alt="heart" />
-        <p>{props.likes}</p>
+        <TweetIconsDiv>
+          <img src={commentIcon} height={20} alt="comment" />
+          <p>{props.comments}</p>
+        </TweetIconsDiv>
+        <TweetIconsDiv>
+          <img
+            src={retweetIcon}
+            height={20}
+            alt="retweet"
+            onClick={() =>
+              props.handleIncrease(props.id, "retweet", props.retweets)
+            }
+          />
+          <p>{props.retweets}</p>
+        </TweetIconsDiv>
+        <TweetIconsDiv>
+          <img
+            src={heartIcon}
+            height={20}
+            alt="heart"
+            onClick={() => props.handleLike(props.id)}
+          />
+          <p>{props.likes}</p>
+        </TweetIconsDiv>
         <img src={shareIcon} height={20} alt="share" />
       </StyledIconsDiv>
     </TweetDiv>

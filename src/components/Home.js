@@ -36,6 +36,12 @@ const StyledComposeButton = styled.div`
   text-decoration: none;
 `;
 
+const StyledFeed = styled.div`
+  max-height: calc(100vh - 8vh - 6vh);
+  width: 100vw;
+  overflow-y: auto;
+`;
+
 const sampleUser = { name: "Rusty", username: "@rusty" };
 
 const Home = (props) => {
@@ -45,27 +51,44 @@ const Home = (props) => {
 
   useEffect(() => {
     document.title = "Home / Tweeter";
-  });
+  }, [content]);
 
   let newTweet = {};
   const handleChange = (e) => {
     newTweet.name = currentUser.name;
     newTweet.username = currentUser.username;
+    newTweet.time = "1m";
     newTweet.content = e.target.value;
-    console.log(newTweet);
-    // setContent((prev) => {
-    // prev.unshift(newTweet);
-    // });
+    newTweet.comments = "";
+    newTweet.retweets = "";
+    newTweet.likes = "";
+    newTweet.id = content.length + 1;
   };
 
   const handleSubmit = (e) => {
-    console.log("submit!");
+    console.log(newTweet);
     e.preventDefault();
+    const updateContent = [newTweet, ...content];
+    setContent(updateContent);
+    handleCompose();
+    console.log(content);
     // addTweet to db
   };
 
   const handleCompose = () => {
-    setToggleCompose((previous) => !previous);
+    setToggleCompose(!toggleCompose);
+  };
+
+  const handleLike = (id) => {
+    let currentTweet = content.find((tweet) => tweet.id === id);
+    let index = content.findIndex((tweet) => tweet.id === id);
+    if (currentTweet.likes === "") {
+      currentTweet.likes = 1;
+    } else currentTweet.likes = currentTweet.likes + 1;
+    //! only like once and no like for numbers with K
+    let currentContent = [...content];
+    currentContent.splice(index, 1, currentTweet);
+    setContent(currentContent);
   };
 
   return (
@@ -73,21 +96,25 @@ const Home = (props) => {
       {!toggleCompose ? (
         <>
           <Header />
-          {content.map((each) => {
-            return (
-              <Tweet
-                key={each.id}
-                name={each.name}
-                username={each.username}
-                time={each.time}
-                content={each.content}
-                comments={each.comments}
-                retweets={each.retweets}
-                likes={each.likes}
-              />
-            );
-          })}
-          <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>
+          <StyledFeed>
+            {content.map((each) => {
+              return (
+                <Tweet
+                  key={each.id}
+                  id={each.id}
+                  name={each.name}
+                  username={each.username}
+                  time={each.time}
+                  content={each.content}
+                  comments={each.comments}
+                  retweets={each.retweets}
+                  likes={each.likes}
+                  handleLike={handleLike}
+                />
+              );
+            })}
+            <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>
+          </StyledFeed>
           <Footer />
         </>
       ) : (
@@ -95,6 +122,7 @@ const Home = (props) => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           handleCompose={handleCompose}
+          value={newTweet.content}
         />
       )}
     </Container>

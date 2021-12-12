@@ -82,8 +82,6 @@ const StyledSpan = styled.span`
 `;
 
 const Compose = (props) => {
-  const handleChange = props.handleChange;
-  const handleSubmit = props.handleSubmit;
   //   useEffect(() => {
   // console.log(handleSubmit);
   //   });
@@ -94,7 +92,7 @@ const Compose = (props) => {
         <StyledBackArrow onClick={props.handleCompose}>
           <HeaderImg src={backIcon} height={30} alt="back" />
         </StyledBackArrow>
-        <TweetButton onClick={handleSubmit}>Tweet</TweetButton>
+        <TweetButton onClick={props.handleSubmit}>Tweet</TweetButton>
       </StyledHeader>
       <StyledDiv>
         <ComposeAvatarDiv>
@@ -105,7 +103,7 @@ const Compose = (props) => {
           placeholder="What's happening?"
           wrap="soft"
           value={props.value}
-          onChange={handleChange}
+          onChange={props.handleChange}
         />
       </StyledDiv>
       <StyledIconsDiv>

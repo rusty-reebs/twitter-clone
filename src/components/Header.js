@@ -16,6 +16,7 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   gap: 1rem;
   border-bottom: 1px solid lightgrey;
+  z-index: 100;
 `;
 
 const HeaderDiv = styled.div`
