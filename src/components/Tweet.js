@@ -29,7 +29,7 @@ const StyledContentDiv = styled.div`
 
 const TweetAvatarDiv = ComposeAvatarDiv;
 const TweetAvatarImg = styled(ComposeAvatarImg)`
-  top: 50%;
+  top: 2vh;
 `;
 
 const TweetIconsDiv = styled.div`
@@ -57,7 +57,7 @@ const Tweet = (props) => {
         </TweetAvatarDiv>
         <StyledContentDiv>
           <div>
-            {props.retweeted && (
+            {props.retweeted && !props.original && (
               <div style={{ display: "flex" }}>
                 <img src={retweetIcon} height={15} alt="retweet" />
                 &nbsp;

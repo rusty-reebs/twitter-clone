@@ -12,6 +12,7 @@ const tweets = [
     time: "1m",
     content: "just setting up my twttr",
     comments: 101,
+    original: true,
     retweets: "1.5K",
     likes: "10K",
   },
@@ -24,6 +25,7 @@ const tweets = [
     content:
       "Welcome to Tweeter! You can like and re-tweet the tweets in the feed as well as compose your own.",
     comments: "253",
+    original: true,
     retweets: "1K",
     likes: "5K",
   },
@@ -33,8 +35,10 @@ const tweets = [
     name: "Rusty",
     username: "@rusty",
     time: "2h",
-    content: "Written in ⚛️React with styled components.",
+    content:
+      "Written in ⚛️React with styled components. The posts below are retrieved from the Twitter API.",
     comments: "78",
+    original: true,
     retweets: 610,
     likes: 999,
   },

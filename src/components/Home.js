@@ -65,6 +65,7 @@ const Home = (props) => {
     newTweet.time = "1m";
     newTweet.content = e.target.value;
     newTweet.comments = "";
+    newTweet.original = true;
     newTweet.retweets = "";
     newTweet.likes = "";
     newTweet.id = content.length + 1;
@@ -85,23 +86,38 @@ const Home = (props) => {
   };
 
   const handleRetweet = (id) => {
-    let currentTweet = content.find((tweet) => tweet.id === id);
+    let foundTweet = content.find((tweet) => tweet.id === id);
+    let index = content.findIndex((tweet) => tweet.id === id);
+    let currentTweet = JSON.parse(JSON.stringify(foundTweet)); // make a deep copy
+    let copyContent = [...content]; // make a shallow copy
     if (
       typeof currentTweet.retweets === "string" &&
       currentTweet.retweets === ""
     ) {
+      currentTweet.id = currentTweet.id + "R";
       currentTweet.retweets = 1;
-      currentTweet.retweeted = true;
+      copyContent[index].retweets = 1;
     } else if (typeof currentTweet.retweets === "string") {
-      currentTweet.retweeted = true;
+      currentTweet.id = currentTweet.id + "R";
     } else {
+      currentTweet.id = currentTweet.id + "R";
       currentTweet.retweets += 1;
-      currentTweet.retweeted = true;
+      copyContent[index].retweets += 1;
     }
+    currentTweet.retweeted = true;
+    currentTweet.original = false;
+    copyContent[index].retweeted = true;
+    setContent([...copyContent]);
     setContent([currentTweet, ...content]);
+    //! go to top of feed
   };
 
   const handleLike = (id) => {
+    // let currentTweetO = content.find(tweet => tweet.id === id);
+    // let currentTweetR = content.find(tweet => tweet.id === id + "R");
+    // let indexTweetO = content.findIndex((tweet) => tweet.id === id);
+    // let indexTweetR = content.findIndex((tweet) => tweet.id === id + "R");
+
     let currentTweet = content.find((tweet) => tweet.id === id);
     let index = content.findIndex((tweet) => tweet.id === id);
     if (typeof currentTweet.likes === "string" && currentTweet.likes === "") {
@@ -127,6 +143,7 @@ const Home = (props) => {
             {content.map((each) => {
               return (
                 <Tweet
+                  // tweet={each} ? can use this to access all props instead?
                   key={each.id}
                   id={each.id}
                   avatar={each.avatar}
@@ -137,6 +154,7 @@ const Home = (props) => {
                   comments={each.comments}
                   retweets={each.retweets}
                   retweeted={each.retweeted}
+                  original={each.original}
                   handleRetweet={handleRetweet}
                   likes={each.likes}
                   liked={each.liked}
