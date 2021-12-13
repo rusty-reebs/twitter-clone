@@ -79,13 +79,35 @@ const Home = (props) => {
     setToggleCompose(!toggleCompose);
   };
 
+  const handleRetweet = (id) => {
+    let currentTweet = content.find((tweet) => tweet.id === id);
+    if (
+      typeof currentTweet.retweets === "string" &&
+      currentTweet.retweets === ""
+    ) {
+      currentTweet.retweets = 1;
+      currentTweet.retweeted = true;
+    } else if (typeof currentTweet.retweets === "string") {
+      currentTweet.retweeted = true;
+    } else {
+      currentTweet.retweets += 1;
+      currentTweet.retweeted = true;
+    }
+    setContent([currentTweet, ...content]);
+  };
+
   const handleLike = (id) => {
     let currentTweet = content.find((tweet) => tweet.id === id);
     let index = content.findIndex((tweet) => tweet.id === id);
-    if (currentTweet.likes === "") {
+    if (typeof currentTweet.likes === "string" && currentTweet.likes === "") {
       currentTweet.likes = 1;
-    } else currentTweet.likes = currentTweet.likes + 1;
-    //! only like once and no like for numbers with K
+      currentTweet.liked = true;
+    } else if (typeof currentTweet.likes === "string") {
+      currentTweet.liked = true;
+    } else {
+      currentTweet.likes += 1;
+      currentTweet.liked = true;
+    }
     let currentContent = [...content];
     currentContent.splice(index, 1, currentTweet);
     setContent(currentContent);
@@ -108,7 +130,10 @@ const Home = (props) => {
                   content={each.content}
                   comments={each.comments}
                   retweets={each.retweets}
+                  retweeted={each.retweeted}
+                  handleRetweet={handleRetweet}
                   likes={each.likes}
+                  liked={each.liked}
                   handleLike={handleLike}
                 />
               );

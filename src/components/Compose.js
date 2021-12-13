@@ -117,4 +117,10 @@ const Compose = (props) => {
 };
 
 export default Compose;
-export { StyledDiv, ComposeAvatarDiv, ComposeAvatarImg, StyledIconsDiv };
+export {
+  StyledDiv,
+  ComposeAvatarDiv,
+  ComposeAvatarImg,
+  StyledIconsDiv,
+  StyledSpan,
+};

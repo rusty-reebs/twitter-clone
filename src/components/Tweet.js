@@ -8,6 +8,7 @@ import {
   ComposeAvatarDiv,
   ComposeAvatarImg,
   StyledIconsDiv,
+  StyledSpan,
 } from "./Compose";
 import tshirtAvatar from "../img/tshirt-1.jpg";
 import commentIcon from "../img/comment.png";
@@ -39,10 +40,15 @@ const TweetIconsDiv = styled.div`
   width: 4rem;
 `;
 
+const StyledTweetSpan = styled(StyledSpan)`
+  color: ${(props) => (props.liked ? "red" : "black")};
+`;
+
 const Tweet = (props) => {
   return (
     <TweetDiv>
       <StyledDiv>
+        {/* add props.retweeted ternary and "You Retweeted" */}
         <TweetAvatarDiv>
           <TweetAvatarImg src={tshirtAvatar} height={30} alt="avatar" />
         </TweetAvatarDiv>
@@ -64,23 +70,26 @@ const Tweet = (props) => {
           <p>{props.comments}</p>
         </TweetIconsDiv>
         <TweetIconsDiv>
-          <img
-            src={retweetIcon}
-            height={20}
-            alt="retweet"
-            onClick={() =>
-              props.handleIncrease(props.id, "retweet", props.retweets)
-            }
-          />
+          {props.retweeted ? (
+            <img src={retweetIcon} height={20} alt="retweet" />
+          ) : (
+            <img
+              src={retweetIcon}
+              height={20}
+              alt="retweet"
+              onClick={() => props.handleRetweet(props.id)}
+            />
+          )}
           <p>{props.retweets}</p>
         </TweetIconsDiv>
         <TweetIconsDiv>
-          <img
-            src={heartIcon}
-            height={20}
-            alt="heart"
-            onClick={() => props.handleLike(props.id)}
-          />
+          {props.liked ? (
+            <StyledTweetSpan liked>favorite</StyledTweetSpan>
+          ) : (
+            <StyledTweetSpan onClick={() => props.handleLike(props.id)}>
+              favorite_border
+            </StyledTweetSpan>
+          )}
           <p>{props.likes}</p>
         </TweetIconsDiv>
         <img src={shareIcon} height={20} alt="share" />
