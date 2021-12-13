@@ -3,7 +3,6 @@
 import React from "react";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
-import avatarPic from "../img/tshirt-1.jpg";
 import birdIcon from "../img/tweeter-3.png";
 import starsIcon from "../img/icons8-stars-32.png";
 
@@ -36,7 +35,12 @@ const Header = (props) => {
   return (
     <StyledHeader>
       <HeaderDiv>
-        <HeaderImg src={avatarPic} height={30} alt="avatar" />
+        <HeaderImg
+          style={{ borderRadius: "50%" }}
+          src={props.avatar.default}
+          height={30}
+          alt="avatar"
+        />
       </HeaderDiv>
       <HeaderDiv>
         <HeaderImg src={birdIcon} height={30} alt="tweeter" />

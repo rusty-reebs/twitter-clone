@@ -10,10 +10,8 @@ import {
   StyledIconsDiv,
   StyledSpan,
 } from "./Compose";
-import tshirtAvatar from "../img/tshirt-1.jpg";
 import commentIcon from "../img/comment.png";
 import retweetIcon from "../img/retweet.png";
-import heartIcon from "../img/heart.png";
 import shareIcon from "../img/share.png";
 
 const TweetDiv = styled.div`
@@ -48,12 +46,24 @@ const Tweet = (props) => {
   return (
     <TweetDiv>
       <StyledDiv>
-        {/* add props.retweeted ternary and "You Retweeted" */}
         <TweetAvatarDiv>
-          <TweetAvatarImg src={tshirtAvatar} height={30} alt="avatar" />
+          <TweetAvatarImg
+            style={{ borderRadius: "50%" }}
+            src={props.avatar}
+            height={30}
+            alt="avatar"
+          />
+          {/* <TweetAvatarImg src={tshirtAvatar} height={30} alt="avatar" /> */}
         </TweetAvatarDiv>
         <StyledContentDiv>
           <div>
+            {props.retweeted && (
+              <div style={{ display: "flex" }}>
+                <img src={retweetIcon} height={15} alt="retweet" />
+                &nbsp;
+                <p>You Retweeted</p>
+              </div>
+            )}
             <p>
               <strong>{props.name}</strong>
               &nbsp;{props.username}&nbsp;&nbsp;{props.time}
@@ -80,7 +90,9 @@ const Tweet = (props) => {
               onClick={() => props.handleRetweet(props.id)}
             />
           )}
-          <p>{props.retweets}</p>
+          <p style={{ color: props.retweeted ? "#00cc00" : "black" }}>
+            {props.retweets}
+          </p>
         </TweetIconsDiv>
         <TweetIconsDiv>
           {props.liked ? (

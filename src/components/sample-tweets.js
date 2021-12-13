@@ -1,10 +1,14 @@
 // sample-tweets.js
 
+const imageJeck = require("../img/jeck.jpeg");
+const imageRusty = require("../img/rusty.jpg");
+
 const tweets = [
   {
     id: 1,
+    avatar: imageJeck.default,
     name: "jeck",
-    username: "@jeck 🌀",
+    username: "@jeck⚡️",
     time: "1m",
     content: "just setting up my twttr",
     comments: 101,
@@ -13,6 +17,7 @@ const tweets = [
   },
   {
     id: 2,
+    avatar: imageRusty.default,
     name: "Rusty",
     username: "@rusty",
     time: "2h",
@@ -24,6 +29,7 @@ const tweets = [
   },
   {
     id: 3,
+    avatar: imageRusty.default,
     name: "Rusty",
     username: "@rusty",
     time: "2h",

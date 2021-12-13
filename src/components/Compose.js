@@ -1,12 +1,11 @@
 // Compose.js
 
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import { StyledHeader, HeaderImg } from "./Header";
 import { StyledButton } from "../Login";
 import backIcon from "../img/icons8-left-24.png";
-import tshirtAvatar from "../img/tshirt-1.jpg";
 
 const TweetButton = styled(StyledButton)`
   font-size: smaller;
@@ -96,7 +95,12 @@ const Compose = (props) => {
       </StyledHeader>
       <StyledDiv>
         <ComposeAvatarDiv>
-          <ComposeAvatarImg src={tshirtAvatar} height={30} alt="avatar" />
+          <ComposeAvatarImg
+            style={{ borderRadius: "50%" }}
+            src={props.avatar.default}
+            height={30}
+            alt="avatar"
+          />
         </ComposeAvatarDiv>
         <StyledTextArea
           type="text"

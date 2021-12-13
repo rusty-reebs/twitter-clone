@@ -42,7 +42,11 @@ const StyledFeed = styled.div`
   overflow-y: auto;
 `;
 
-const sampleUser = { name: "Rusty", username: "@rusty" };
+const sampleUser = {
+  name: "Rusty",
+  username: "@rusty",
+  avatar: require("../img/rusty.jpg"),
+};
 
 const Home = (props) => {
   const [content, setContent] = useState(tweets);
@@ -55,6 +59,7 @@ const Home = (props) => {
 
   let newTweet = {};
   const handleChange = (e) => {
+    newTweet.avatar = currentUser.avatar;
     newTweet.name = currentUser.name;
     newTweet.username = currentUser.username;
     newTweet.time = "1m";
@@ -117,13 +122,14 @@ const Home = (props) => {
     <Container>
       {!toggleCompose ? (
         <>
-          <Header />
+          <Header avatar={currentUser.avatar} />
           <StyledFeed>
             {content.map((each) => {
               return (
                 <Tweet
                   key={each.id}
                   id={each.id}
+                  avatar={each.avatar}
                   name={each.name}
                   username={each.username}
                   time={each.time}
@@ -144,6 +150,7 @@ const Home = (props) => {
         </>
       ) : (
         <Compose
+          avatar={currentUser.avatar}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           handleCompose={handleCompose}
