@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import { StyledHeader, HeaderImg } from "./Header";
-import { StyledButton } from "../Login";
+import { StyledButton } from "../Start";
 import backIcon from "../img/icons8-left-24.png";
 
 const TweetButton = styled(StyledButton)`

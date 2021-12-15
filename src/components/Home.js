@@ -1,6 +1,7 @@
 // Main.js
 
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import Header from "./Header";
@@ -53,9 +54,26 @@ const Home = (props) => {
   const [currentUser, setCurrentUser] = useState(sampleUser);
   const [toggleCompose, setToggleCompose] = useState(false);
 
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth token");
+    if (authToken) {
+      navigate("/home");
+    }
+    if (!authToken) {
+      navigate("/login");
+    }
+  }, []);
+
   useEffect(() => {
     document.title = "Home / Tweeter";
   }, [content]);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("Auth token");
+    navigate("/");
+  };
 
   let newTweet = {};
   const handleChange = (e) => {

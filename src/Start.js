@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 // import { sizes, devices } from "./styling";
 
@@ -55,9 +56,11 @@ const TinyParagraph = styled.p`
 
 const birdIcon = require("./img/tweeter-3.png");
 
-const Login = () => {
+const Start = (props) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    document.title = "Tweeter - Login";
+    document.title = "Tweeter - Welcome";
   });
 
   return (
@@ -69,17 +72,19 @@ const Login = () => {
         now
       </Heading>
       <Subheading>Join Tweeter today.</Subheading>
-      <StyledButton>Sign up with email</StyledButton>
+      <StyledButton onClick={() => navigate("/register")}>
+        Sign up with email
+      </StyledButton>
       <StyledButton>Sign in as a guest</StyledButton>
       <TinyParagraph>
         By the way, there are <strong>no</strong> Terms of Service or Privacy
         Policy.
       </TinyParagraph>
       <Paragraph>Already have an account?</Paragraph>
-      <SigninButton>Sign in</SigninButton>
+      <SigninButton onClick={() => navigate("/login")}>Sign in</SigninButton>
     </Maindiv>
   );
 };
 
-export default Login;
-export { StyledButton };
+export default Start;
+export { Maindiv, StyledButton, Paragraph };
