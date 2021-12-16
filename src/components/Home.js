@@ -3,6 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { app, db } from "../firebase/firebase.config";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { doc, getDoc } from "firebase/firestore";
 // import { sizes, devices } from "../styling";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -43,32 +47,71 @@ const StyledFeed = styled.div`
   overflow-y: auto;
 `;
 
-const sampleUser = {
-  name: "Rusty",
-  username: "@rusty",
-  avatar: require("../img/rusty.jpg"),
-};
+// const sampleUser = {
+//   name: "Rusty",
+//   username: "@rusty",
+//   avatar: require("../img/rusty.jpg"),
+// };
 
 const Home = (props) => {
   const [content, setContent] = useState(tweets);
-  const [currentUser, setCurrentUser] = useState(sampleUser);
+  // const [currentUser, setCurrentUser] = useState();
   const [toggleCompose, setToggleCompose] = useState(false);
+  // const [userName, setUserName] = useState("");
+  const [displayName, setDisplayName] = useState("");
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    let authToken = sessionStorage.getItem("Auth token");
-    if (authToken) {
-      navigate("/home");
-    }
-    if (!authToken) {
-      navigate("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   let authToken = sessionStorage.getItem("Auth token");
+  //   if (authToken) {
+  //     navigate("/home");
+  //     fetchUser();
+  //   }
+  //   if (!authToken) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   useEffect(() => {
     document.title = "Home / Tweeter";
   }, [content]);
+
+  const auth = getAuth(app);
+  const [user, loading, error] = useAuthState(auth);
+
+  useEffect(() => {
+    if (loading) return;
+    console.log(user);
+    if (!user) return navigate("/login");
+    // fetchUser();
+  }, [user, loading]);
+
+  const fetchUser = async () => {
+    try {
+      const query = await db
+        .collection("users")
+        .where("uid", "==", user?.uid)
+        .get();
+      const data = await query.docs[0].data();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // try {
+    //   const query = await db
+    //     .collection("users")
+    //     .where("uid", "==", authentication.uid)
+    //     .get();
+    //   const response = await query.docs[0].data();
+    //   setUserName(response.userName);
+    //   setDisplayName(response.displayName);
+    //   console.log(userName, displayName);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("Auth token");
@@ -77,9 +120,9 @@ const Home = (props) => {
 
   let newTweet = {};
   const handleChange = (e) => {
-    newTweet.avatar = currentUser.avatar;
-    newTweet.name = currentUser.name;
-    newTweet.username = currentUser.username;
+    // newTweet.avatar = currentUser.avatar;
+    // newTweet.name = currentUser.name;
+    // newTweet.username = currentUser.username;
     newTweet.time = "1m";
     newTweet.content = e.target.value;
     newTweet.comments = "";
@@ -156,7 +199,8 @@ const Home = (props) => {
     <Container>
       {!toggleCompose ? (
         <>
-          <Header avatar={currentUser.avatar} />
+          {/* <Header displayName={displayName} /> */}
+          <Header displayName={"rusty"} />
           <StyledFeed>
             {content.map((each) => {
               return (
@@ -186,7 +230,7 @@ const Home = (props) => {
         </>
       ) : (
         <Compose
-          avatar={currentUser.avatar}
+          displayName={props.displayName}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           handleCompose={handleCompose}

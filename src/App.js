@@ -36,39 +36,58 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  // const [currentUser, setCurrentUser] = useState("");
+  const [userName, setUserName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  // const [currentUser, setCurrentUser] = useState({});
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    let authToken = sessionStorage.getItem("Auth token");
-    if (authToken) {
+  // useEffect(() => {
+  //   let authToken = sessionStorage.getItem("Auth token");
+  //   if (authToken) {
+  //     navigate("/home");
+  //   }
+  // }, []);
+
+  const handleAction = async (action) => {
+    const authentication = getAuth(app);
+    if (action === "register") {
+      try {
+        const response = await createUserWithEmailAndPassword(
+          authentication,
+          email,
+          password
+        );
+        const user = response.user;
+        await setDoc(
+          doc(db, "users", userName),
+          { uid: user.uid, displayName: displayName, userName: userName },
+          { merge: true }
+        );
+      } catch (error) {
+        console.error(error);
+        if (error.code === "auth/email-already-in-use") {
+          toast.error("Email already exists");
+        }
+      }
       navigate("/home");
     }
-  }, []);
-
-  const handleAction = (action) => {
-    const authentication = getAuth();
-    if (action === "register") {
-      createUserWithEmailAndPassword(authentication, email, password, name)
-        .then((response) => {
-          console.log(response);
-          let uid = response.user.uid;
-          navigate("/home");
-          sessionStorage.setItem(
-            "Auth token",
-            response._tokenResponse.refreshToken
-          );
-          // setCurrentUser(name);
-          addUserToDb(email, uid, name);
-        })
-        .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
-            toast.error("Email already exists");
-          }
-        });
-    }
+    // const handleAction = (action) => {
+    // const authentication = getAuth(app);
+    // if (action === "register") {
+    //   createUserWithEmailAndPassword(authentication, email, password)
+    //     .then((response) => {
+    //       console.log(response);
+    //       let uid = response.user.uid;
+    //       addUserToDb(uid, userName, displayName);
+    //       navigate("/home");
+    //     })
+    //     .catch((error) => {
+    //       if (error.code === "auth/email-already-in-use") {
+    //         toast.error("Email already exists");
+    //       }
+    //     });
+    // }
     if (action === "login") {
       signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
@@ -78,6 +97,7 @@ const App = () => {
             response._tokenResponse.refreshToken
           );
           // getUserFromDb();
+          // should be in useEffect hook somewhere?
           // setCurrentUser
         })
         .catch((error) => {
@@ -91,16 +111,16 @@ const App = () => {
     }
   };
 
-  const addUserToDb = (email, uid, displayName) => {
-    const newUser = doc(db, "users", email);
-    setDoc(
-      newUser,
-      { email: email, uid: uid, displayName: displayName },
-      { merge: true }
-    ).catch((error) => {
-      console.error(error);
-    });
-  };
+  // const addUserToDb = (uid, userName, displayName) => {
+  //   const newUser = doc(db, "users", userName);
+  //   setDoc(
+  //     newUser,
+  //     { uid: uid, userName: userName, displayName: displayName },
+  //     { merge: true }
+  //   ).catch((error) => {
+  //     console.error(error);
+  //   });
+  // };
 
   return (
     <div>
@@ -126,8 +146,9 @@ const App = () => {
               title="Register"
               setEmail={setEmail}
               setPassword={setPassword}
-              setName={setName}
-              displayNameInput={true}
+              setUserName={setUserName}
+              setDisplayName={setDisplayName}
+              renderNameInputs={true}
               handleAction={() => handleAction("register")}
             />
           }

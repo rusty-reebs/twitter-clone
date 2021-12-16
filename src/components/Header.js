@@ -5,6 +5,7 @@ import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import birdIcon from "../img/tweeter-3.png";
 import starsIcon from "../img/icons8-stars-32.png";
+import Avatar from "./Avatar";
 
 const StyledHeader = styled.div`
   position: sticky;
@@ -24,6 +25,12 @@ const HeaderDiv = styled.div`
   position: relative;
 `;
 
+const HeaderAvatarDiv = styled(HeaderDiv)`
+  display: flex;
+  align-content: center;
+  width: 10%;
+`;
+
 const HeaderImg = styled.img`
   position: absolute;
   top: 50%;
@@ -34,14 +41,15 @@ const HeaderImg = styled.img`
 const Header = (props) => {
   return (
     <StyledHeader>
-      <HeaderDiv>
-        <HeaderImg
+      <HeaderAvatarDiv>
+        {/* <HeaderImg
           style={{ borderRadius: "50%" }}
           src={props.avatar.default}
           height={30}
           alt="avatar"
-        />
-      </HeaderDiv>
+        /> */}
+        <Avatar displayName={props.displayName} />
+      </HeaderAvatarDiv>
       <HeaderDiv>
         <HeaderImg src={birdIcon} height={30} alt="tweeter" />
       </HeaderDiv>

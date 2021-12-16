@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { StyledHeader, HeaderImg } from "./Header";
 import { StyledButton } from "../Start";
 import backIcon from "../img/icons8-left-24.png";
+import Avatar from "./Avatar";
 
 const TweetButton = styled(StyledButton)`
   font-size: smaller;
@@ -95,12 +96,13 @@ const Compose = (props) => {
       </StyledHeader>
       <StyledDiv>
         <ComposeAvatarDiv>
-          <ComposeAvatarImg
+          {/* <ComposeAvatarImg
             style={{ borderRadius: "50%" }}
             src={props.avatar.default}
             height={30}
             alt="avatar"
-          />
+          /> */}
+          <Avatar displayName={props.displayName} />
         </ComposeAvatarDiv>
         <StyledTextArea
           type="text"

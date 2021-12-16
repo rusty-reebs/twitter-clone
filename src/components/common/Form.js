@@ -25,13 +25,21 @@ const Form = (props) => {
       <img src={birdIcon.default} width={80} alt={"Tweeter"}></img>
       <Paragraph>Enter your details</Paragraph>
       <StyledForm>
-        {props.displayNameInput ? (
-          <StyledInput
-            type="text"
-            id="name"
-            placeholder="Enter your display name"
-            onChange={(e) => props.setName(e.target.value)}
-          />
+        {props.renderNameInputs ? (
+          <div>
+            <StyledInput
+              type="text"
+              id="username"
+              placeholder="Enter your user name"
+              onChange={(e) => props.setUserName(e.target.value)}
+            />
+            <StyledInput
+              type="text"
+              id="displayname"
+              placeholder="Enter your display name"
+              onChange={(e) => props.setDisplayName(e.target.value)}
+            />
+          </div>
         ) : null}
         <StyledInput
           type="email"
