@@ -10,6 +10,7 @@ import {
   StyledIconsDiv,
   StyledSpan,
 } from "./Compose";
+import Avatar from "./Avatar";
 import commentIcon from "../img/comment.png";
 import retweetIcon from "../img/retweet.png";
 import shareIcon from "../img/share.png";
@@ -47,13 +48,16 @@ const Tweet = (props) => {
     <TweetDiv>
       <StyledDiv>
         <TweetAvatarDiv>
-          <TweetAvatarImg
-            style={{ borderRadius: "50%" }}
-            src={props.avatar}
-            height={30}
-            alt="avatar"
-          />
-          {/* <TweetAvatarImg src={tshirtAvatar} height={30} alt="avatar" /> */}
+          {props.avatar ? (
+            <TweetAvatarImg
+              style={{ borderRadius: "50%" }}
+              src={props.avatar}
+              height={30}
+              alt="avatar"
+            />
+          ) : (
+            <Avatar displayName={props.displayName} />
+          )}
         </TweetAvatarDiv>
         <StyledContentDiv>
           <div>
@@ -65,8 +69,8 @@ const Tweet = (props) => {
               </div>
             )}
             <p>
-              <strong>{props.name}</strong>
-              &nbsp;{props.username}&nbsp;&nbsp;{props.time}
+              <strong>{props.displayName}</strong>
+              &nbsp;{props.userName}&nbsp;&nbsp;{props.time}
             </p>
           </div>
           <div>

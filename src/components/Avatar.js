@@ -22,13 +22,11 @@ const AvatarLetter = styled.h2`
 
 const Avatar = (props) => {
   const displayName = props.displayName;
-  //   console.log(displayName);
-  const firstInitial = displayName.charAt(0);
+  const firstInitial = displayName.charAt(0).toUpperCase();
 
   return (
-    <AvatarDiv>
+    <AvatarDiv onClick={() => props.handleLogout()}>
       <AvatarLetter>{firstInitial}</AvatarLetter>
-      {/* <AvatarLetter>R</AvatarLetter> */}
     </AvatarDiv>
   );
 };

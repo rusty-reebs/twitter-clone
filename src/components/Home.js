@@ -1,4 +1,4 @@
-// Main.js
+// Home.js
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,15 @@ import styled from "styled-components";
 import { app, db } from "../firebase/firebase.config";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDocs,
+  collection,
+  where,
+  query,
+  arrayUnion,
+} from "firebase/firestore";
 // import { sizes, devices } from "../styling";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -47,82 +55,56 @@ const StyledFeed = styled.div`
   overflow-y: auto;
 `;
 
-// const sampleUser = {
-//   name: "Rusty",
-//   username: "@rusty",
-//   avatar: require("../img/rusty.jpg"),
-// };
-
 const Home = (props) => {
   const [content, setContent] = useState(tweets);
-  // const [currentUser, setCurrentUser] = useState();
   const [toggleCompose, setToggleCompose] = useState(false);
-  // const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("");
   const [displayName, setDisplayName] = useState("");
 
   let navigate = useNavigate();
-
-  // useEffect(() => {
-  //   let authToken = sessionStorage.getItem("Auth token");
-  //   if (authToken) {
-  //     navigate("/home");
-  //     fetchUser();
-  //   }
-  //   if (!authToken) {
-  //     navigate("/login");
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    document.title = "Home / Tweeter";
-  }, [content]);
 
   const auth = getAuth(app);
   const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
+    document.title = "Home / Tweeter";
     if (loading) return;
     console.log(user);
-    if (!user) return navigate("/login");
-    // fetchUser();
+    if (!user) return navigate("/");
+    if (error) console.error(error);
+    if (!user.isAnonymous) fetchUser();
+    if (user.isAnonymous) {
+      setUserName("guest");
+      setDisplayName("Guest");
+    }
   }, [user, loading]);
 
   const fetchUser = async () => {
     try {
-      const query = await db
-        .collection("users")
-        .where("uid", "==", user?.uid)
-        .get();
-      const data = await query.docs[0].data();
-      console.log(data);
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const querySnapshot = await getDocs(q);
+      let currentUser;
+      querySnapshot.forEach((doc) => {
+        // console.log(doc.id, " => ", doc.data());
+        currentUser = doc.data();
+      });
+      setUserName(currentUser.userName);
+      setDisplayName(currentUser.displayName);
     } catch (error) {
       console.error(error);
     }
-
-    // try {
-    //   const query = await db
-    //     .collection("users")
-    //     .where("uid", "==", authentication.uid)
-    //     .get();
-    //   const response = await query.docs[0].data();
-    //   setUserName(response.userName);
-    //   setDisplayName(response.displayName);
-    //   console.log(userName, displayName);
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("Auth token");
+    console.log("logout!");
+    auth.signOut();
     navigate("/");
   };
 
   let newTweet = {};
   const handleChange = (e) => {
-    // newTweet.avatar = currentUser.avatar;
-    // newTweet.name = currentUser.name;
-    // newTweet.username = currentUser.username;
+    newTweet.displayName = displayName;
+    newTweet.userName = "@" + userName;
     newTweet.time = "1m";
     newTweet.content = e.target.value;
     newTweet.comments = "";
@@ -139,7 +121,21 @@ const Home = (props) => {
     setContent(updateContent);
     handleCompose();
     console.log(content);
-    // addTweet to db
+    if (!user.isAnonymous) {
+      addTweetToDb(newTweet.content);
+    }
+  };
+
+  const addTweetToDb = async (content) => {
+    try {
+      await setDoc(
+        doc(db, "users", userName),
+        { tweets: arrayUnion(content) },
+        { merge: true }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCompose = () => {
@@ -199,8 +195,7 @@ const Home = (props) => {
     <Container>
       {!toggleCompose ? (
         <>
-          {/* <Header displayName={displayName} /> */}
-          <Header displayName={"rusty"} />
+          <Header displayName={displayName} handleLogout={handleLogout} />
           <StyledFeed>
             {content.map((each) => {
               return (
@@ -209,8 +204,8 @@ const Home = (props) => {
                   key={each.id}
                   id={each.id}
                   avatar={each.avatar}
-                  name={each.name}
-                  username={each.username}
+                  displayName={each.displayName}
+                  userName={each.userName}
                   time={each.time}
                   content={each.content}
                   comments={each.comments}
@@ -230,7 +225,7 @@ const Home = (props) => {
         </>
       ) : (
         <Compose
-          displayName={props.displayName}
+          displayName={displayName}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           handleCompose={handleCompose}

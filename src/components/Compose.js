@@ -82,10 +82,6 @@ const StyledSpan = styled.span`
 `;
 
 const Compose = (props) => {
-  //   useEffect(() => {
-  // console.log(handleSubmit);
-  //   });
-
   return (
     <div>
       <StyledHeader>
@@ -96,12 +92,6 @@ const Compose = (props) => {
       </StyledHeader>
       <StyledDiv>
         <ComposeAvatarDiv>
-          {/* <ComposeAvatarImg
-            style={{ borderRadius: "50%" }}
-            src={props.avatar.default}
-            height={30}
-            alt="avatar"
-          /> */}
           <Avatar displayName={props.displayName} />
         </ComposeAvatarDiv>
         <StyledTextArea

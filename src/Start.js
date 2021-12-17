@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 // import { sizes, devices } from "./styling";
@@ -19,11 +19,15 @@ const Heading = styled.h1`
   // font-weight: 700;
   // color: black;
   font-size: 3.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const Subheading = styled.h3`
   // font-weight: 400;
   font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const StyledButton = styled.button`
@@ -47,11 +51,22 @@ const SigninButton = styled(StyledButton)`
 const Paragraph = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
+  margin-top: 1.5rem;
 `;
 
 const TinyParagraph = styled.p`
   font-size: 0.5rem;
   text-align: center;
+`;
+
+const Footer = styled.div`
+  align-self: center;
+  display: table;
+  position: fixed;
+  bottom: 0.5rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const birdIcon = require("./img/tweeter-3.png");
@@ -75,13 +90,24 @@ const Start = (props) => {
       <StyledButton onClick={() => navigate("/register")}>
         Sign up with email
       </StyledButton>
-      <StyledButton>Sign in as a guest</StyledButton>
+      <StyledButton onClick={() => props.handleAction("guest")}>
+        Sign in as a guest
+      </StyledButton>
       <TinyParagraph>
         By the way, there are <strong>no</strong> Terms of Service or Privacy
         Policy.
       </TinyParagraph>
       <Paragraph>Already have an account?</Paragraph>
       <SigninButton onClick={() => navigate("/login")}>Sign in</SigninButton>
+      <Footer>
+        <p>
+          🤩 Built with enthusiasm by{" "}
+          <a href="https://github.com/rusty-reebs">rusty-reebs</a>&nbsp;
+          <span>
+            <i className="devicon-github-original colored"></i>
+          </span>
+        </p>
+      </Footer>
     </Maindiv>
   );
 };

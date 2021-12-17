@@ -1,6 +1,6 @@
 // App.js
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,11 +11,12 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInAnonymously,
 } from "firebase/auth";
 import Start from "./Start";
 import Form from "./components/common/Form";
 import Home from "./components/Home";
-import Compose from "./components/Compose";
+// import Compose from "./components/Compose";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -38,16 +39,8 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [displayName, setDisplayName] = useState("");
-  // const [currentUser, setCurrentUser] = useState({});
 
   let navigate = useNavigate();
-
-  // useEffect(() => {
-  //   let authToken = sessionStorage.getItem("Auth token");
-  //   if (authToken) {
-  //     navigate("/home");
-  //   }
-  // }, []);
 
   const handleAction = async (action) => {
     const authentication = getAuth(app);
@@ -61,8 +54,13 @@ const App = () => {
         const user = response.user;
         await setDoc(
           doc(db, "users", userName),
-          { uid: user.uid, displayName: displayName, userName: userName },
-          { merge: true }
+          {
+            uid: user.uid,
+            displayName: displayName,
+            userName: userName,
+            tweets: [],
+          }
+          // { merge: true }
         );
       } catch (error) {
         console.error(error);
@@ -72,62 +70,40 @@ const App = () => {
       }
       navigate("/home");
     }
-    // const handleAction = (action) => {
-    // const authentication = getAuth(app);
-    // if (action === "register") {
-    //   createUserWithEmailAndPassword(authentication, email, password)
-    //     .then((response) => {
-    //       console.log(response);
-    //       let uid = response.user.uid;
-    //       addUserToDb(uid, userName, displayName);
-    //       navigate("/home");
-    //     })
-    //     .catch((error) => {
-    //       if (error.code === "auth/email-already-in-use") {
-    //         toast.error("Email already exists");
-    //       }
-    //     });
-    // }
+
     if (action === "login") {
-      signInWithEmailAndPassword(authentication, email, password)
-        .then((response) => {
-          navigate("/home");
-          sessionStorage.setItem(
-            "Auth token",
-            response._tokenResponse.refreshToken
-          );
-          // getUserFromDb();
-          // should be in useEffect hook somewhere?
-          // setCurrentUser
-        })
-        .catch((error) => {
-          if (error.code === "auth/wrong-password") {
-            toast.error("Please check password");
-          }
-          if (error.code === "auth/user-not-found") {
-            toast.error("Please check email");
-          }
-        });
+      try {
+        await signInWithEmailAndPassword(authentication, email, password);
+        navigate("/home");
+      } catch (error) {
+        if (error.code === "auth/wrong-password") {
+          toast.error("Please check password");
+        }
+        if (error.code === "auth/user-not-found") {
+          toast.error("Please check email");
+        }
+      }
+    }
+
+    if (action === "guest") {
+      try {
+        await signInAnonymously(authentication);
+        navigate("/home");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
-
-  // const addUserToDb = (uid, userName, displayName) => {
-  //   const newUser = doc(db, "users", userName);
-  //   setDoc(
-  //     newUser,
-  //     { uid: uid, userName: userName, displayName: displayName },
-  //     { merge: true }
-  //   ).catch((error) => {
-  //     console.error(error);
-  //   });
-  // };
 
   return (
     <div>
       <ToastContainer />
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Start />} />
+        <Route
+          path="/"
+          element={<Start handleAction={() => handleAction("guest")} />}
+        />
         <Route
           path="/login"
           element={
@@ -154,7 +130,7 @@ const App = () => {
           }
         />
         <Route path="/home" element={<Home />} />
-        <Route path="/compose" element={<Compose />} />
+        {/* <Route path="/compose" element={<Compose />} /> */}
       </Routes>
     </div>
   );

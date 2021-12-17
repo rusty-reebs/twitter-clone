@@ -29,6 +29,7 @@ const HeaderAvatarDiv = styled(HeaderDiv)`
   display: flex;
   align-content: center;
   width: 10%;
+  margin-left: 0.5rem;
 `;
 
 const HeaderImg = styled.img`
@@ -42,18 +43,15 @@ const Header = (props) => {
   return (
     <StyledHeader>
       <HeaderAvatarDiv>
-        {/* <HeaderImg
-          style={{ borderRadius: "50%" }}
-          src={props.avatar.default}
-          height={30}
-          alt="avatar"
-        /> */}
-        <Avatar displayName={props.displayName} />
+        <Avatar
+          displayName={props.displayName}
+          handleLogout={props.handleLogout}
+        />
       </HeaderAvatarDiv>
       <HeaderDiv>
         <HeaderImg src={birdIcon} height={30} alt="tweeter" />
       </HeaderDiv>
-      <HeaderDiv>
+      <HeaderDiv style={{ marginRight: "0.5rem" }}>
         <HeaderImg src={starsIcon} height={30} alt="stars" />
       </HeaderDiv>
     </StyledHeader>

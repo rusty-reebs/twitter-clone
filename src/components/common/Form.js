@@ -15,6 +15,7 @@ const StyledInput = styled.input`
   padding: 0.8rem;
   margin: 0.5rem 0;
   box-sizing: border-box;
+  border-radius: 0.5rem;
 `;
 
 const birdIcon = require("../../img/tweeter-3.png");
@@ -30,13 +31,13 @@ const Form = (props) => {
             <StyledInput
               type="text"
               id="username"
-              placeholder="Enter your user name"
+              placeholder="User name"
               onChange={(e) => props.setUserName(e.target.value)}
             />
             <StyledInput
               type="text"
               id="displayname"
-              placeholder="Enter your display name"
+              placeholder="Display name"
               onChange={(e) => props.setDisplayName(e.target.value)}
             />
           </div>
@@ -44,13 +45,13 @@ const Form = (props) => {
         <StyledInput
           type="email"
           id="email"
-          placeholder="Enter your email"
+          placeholder="Email address"
           onChange={(e) => props.setEmail(e.target.value)}
         />
         <StyledInput
           type="password"
           id="password"
-          placeholder="Enter your password"
+          placeholder="Password"
           onChange={(e) => props.setPassword(e.target.value)}
         />
       </StyledForm>
