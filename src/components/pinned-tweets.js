@@ -1,9 +1,9 @@
-// sample-tweets.js
+// pinned-tweets.js
 
 const imageJeck = require("../img/jeck.jpeg");
 const imageRusty = require("../img/rusty.jpg");
 
-const tweets = [
+const pinnedTweets = [
   {
     id: 1,
     avatar: imageJeck.default,
@@ -36,12 +36,25 @@ const tweets = [
     userName: "@rusty",
     time: "📌",
     content:
+      "If you're logged in, tap your avatar icon to see your tweets in the database.",
+    comments: "21",
+    original: true,
+    retweets: 88,
+    likes: 483,
+  },
+  {
+    id: 4,
+    avatar: imageRusty.default,
+    displayName: "Rusty",
+    userName: "@rusty",
+    time: "📌",
+    content:
       "Written in ⚛️React with styled components. The posts 👇 below are retrieved via the Twitter API.",
     comments: "78",
     original: true,
-    retweets: 610,
-    likes: 999,
+    retweets: 619,
+    likes: 962,
   },
 ];
 
-export default tweets;
+export default pinnedTweets;
