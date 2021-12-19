@@ -67,7 +67,7 @@ const Modal = (props) => {
         <ModalUserDiv>
           <Avatar displayName={props.displayName} />
           <h3>{props.displayName}</h3>
-          <p>{"@" + props.userName}</p>
+          <p>{props.userName}</p>
         </ModalUserDiv>
         <ModalDiv>
           <p>

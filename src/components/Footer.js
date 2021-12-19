@@ -34,7 +34,7 @@ const Icon = styled.img`
 const Footer = (props) => {
   return (
     <StyledFooter>
-      <IconDiv>
+      <IconDiv onClick={() => props.closeMyTweets()}>
         <Icon src={birdhouseIcon} alt={"icon"} />
       </IconDiv>
       <IconDiv>

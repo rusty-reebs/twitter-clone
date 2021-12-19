@@ -41,11 +41,13 @@ const HeaderImg = styled.img`
 
 const Header = (props) => {
   return (
-    <StyledHeader>
+    <StyledHeader style={{ zIndex: props.toggleModal ? "0" : "100" }}>
       <HeaderAvatarDiv>
         <Avatar
           displayName={props.displayName}
           handleLogout={props.handleLogout}
+          handleModal={props.handleModal}
+          toggleModal={props.toggleModal}
         />
       </HeaderAvatarDiv>
       <HeaderDiv>

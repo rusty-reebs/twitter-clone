@@ -25,7 +25,7 @@ const Avatar = (props) => {
   const firstInitial = displayName.charAt(0).toUpperCase();
 
   return (
-    <AvatarDiv onClick={() => props.handleLogout()}>
+    <AvatarDiv onClick={() => props.handleModal()}>
       <AvatarLetter>{firstInitial}</AvatarLetter>
     </AvatarDiv>
   );

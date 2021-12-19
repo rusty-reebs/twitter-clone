@@ -49,7 +49,7 @@ const pinnedTweets = [
     userName: "@rusty",
     time: "📌",
     content:
-      "Written in ⚛️React with styled components. The posts 👇 below are retrieved via the Twitter API.",
+      "Written in ⚛️React with styled components. Backend hosted by Firebase. The tweets 👇 below are retrieved via the Twitter API.",
     comments: "78",
     original: true,
     retweets: 619,

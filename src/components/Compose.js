@@ -96,6 +96,7 @@ const Compose = (props) => {
         </ComposeAvatarDiv>
         <StyledTextArea
           type="text"
+          maxLength="280"
           placeholder="What's happening?"
           wrap="soft"
           value={props.value}

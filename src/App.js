@@ -53,11 +53,11 @@ const App = () => {
         );
         const user = response.user;
         await setDoc(
-          doc(db, "users", userName),
+          doc(db, "users", "@" + userName),
           {
             uid: user.uid,
             displayName: displayName,
-            userName: userName,
+            userName: "@" + userName,
             tweets: [],
           }
           // { merge: true }
@@ -80,7 +80,7 @@ const App = () => {
           toast.error("Please check password");
         }
         if (error.code === "auth/user-not-found") {
-          toast.error("Please check email");
+          toast.error("User not found");
         }
       }
     }

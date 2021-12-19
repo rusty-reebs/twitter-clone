@@ -20,8 +20,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Tweet from "./Tweet";
 import Compose from "./Compose";
+import Modal from "./Modal";
 
-import tweets from "./sample-tweets";
+import pinnedTweets from "./pinned-tweets";
 
 const Container = styled.div`
   height: 100vh;
@@ -55,11 +56,15 @@ const StyledFeed = styled.div`
   overflow-y: auto;
 `;
 
+let myTweets = [];
+
 const Home = (props) => {
-  const [content, setContent] = useState(tweets);
+  const [content, setContent] = useState(pinnedTweets);
   const [toggleCompose, setToggleCompose] = useState(false);
   const [userName, setUserName] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [toggleModal, setToggleModal] = useState(false);
+  const [showMyTweets, setShowMyTweets] = useState(false);
 
   let navigate = useNavigate();
 
@@ -72,14 +77,35 @@ const Home = (props) => {
     console.log(user);
     if (!user) return navigate("/");
     if (error) console.error(error);
-    if (!user.isAnonymous) fetchUser();
+    // if (!user.isAnonymous) fetchUser();
+    if (!user.isAnonymous) logInUser();
     if (user.isAnonymous) {
       setUserName("guest");
       setDisplayName("Guest");
     }
   }, [user, loading]);
 
-  const fetchUser = async () => {
+  useEffect(() => {
+    document.title = "My Tweets / Tweeter";
+  }, [showMyTweets]);
+
+  // const fetchUser = async () => {
+  //   try {
+  //     const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+  //     const querySnapshot = await getDocs(q);
+  //     let currentUser;
+  //     querySnapshot.forEach((doc) => {
+  //       // console.log(doc.id, " => ", doc.data());
+  //       currentUser = doc.data();
+  //     });
+  //     setUserName(currentUser.userName);
+  //     setDisplayName(currentUser.displayName);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const fetchUserDb = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const querySnapshot = await getDocs(q);
@@ -88,11 +114,17 @@ const Home = (props) => {
         // console.log(doc.id, " => ", doc.data());
         currentUser = doc.data();
       });
-      setUserName(currentUser.userName);
-      setDisplayName(currentUser.displayName);
+      return currentUser;
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
+  };
+
+  const logInUser = async () => {
+    const currentUser = await fetchUserDb();
+    console.log(currentUser);
+    setUserName(currentUser.userName);
+    setDisplayName(currentUser.displayName);
   };
 
   const handleLogout = () => {
@@ -104,7 +136,7 @@ const Home = (props) => {
   let newTweet = {};
   const handleChange = (e) => {
     newTweet.displayName = displayName;
-    newTweet.userName = "@" + userName;
+    newTweet.userName = userName;
     newTweet.time = "1m";
     newTweet.content = e.target.value;
     newTweet.comments = "";
@@ -142,86 +174,149 @@ const Home = (props) => {
     setToggleCompose(!toggleCompose);
   };
 
+  const handleModal = () => {
+    setToggleModal(!toggleModal);
+  };
+
+  // let myTweets = [];
+  const handleMyTweets = async () => {
+    const currentUser = await fetchUserDb();
+    console.log(currentUser.tweets);
+    myTweets = currentUser.tweets;
+    // myTweets = currentUser.tweets.map((each, i) => (
+    // <Tweet
+    // key={i}
+    // displayName={currentUser.displayName}
+    // userName={currentUser.userName}
+    // content={each}
+    // />
+    // ));
+    console.log("myTweets", myTweets);
+    setShowMyTweets(true);
+  };
+
+  const closeMyTweets = () => {
+    setShowMyTweets(showMyTweets ? false : null);
+  };
+
   const handleRetweet = (id) => {
-    let foundTweet = content.find((tweet) => tweet.id === id);
-    let index = content.findIndex((tweet) => tweet.id === id);
-    let currentTweet = JSON.parse(JSON.stringify(foundTweet)); // make a deep copy
-    let copyContent = [...content]; // make a shallow copy
-    if (
-      typeof currentTweet.retweets === "string" &&
-      currentTweet.retweets === ""
-    ) {
-      currentTweet.id = currentTweet.id + "R";
-      currentTweet.retweets = 1;
-      copyContent[index].retweets = 1;
-    } else if (typeof currentTweet.retweets === "string") {
-      currentTweet.id = currentTweet.id + "R";
-    } else {
-      currentTweet.id = currentTweet.id + "R";
-      currentTweet.retweets += 1;
-      copyContent[index].retweets += 1;
-    }
-    currentTweet.retweeted = true;
-    currentTweet.original = false;
-    copyContent[index].retweeted = true;
-    setContent([...copyContent]);
-    setContent([currentTweet, ...content]);
-    //! go to top of feed
+    if (!showMyTweets) {
+      let foundTweet = content.find((tweet) => tweet.id === id);
+      let index = content.findIndex((tweet) => tweet.id === id);
+      let currentTweet = JSON.parse(JSON.stringify(foundTweet)); // make a deep copy
+      let copyContent = [...content]; // make a shallow copy
+      if (
+        typeof currentTweet.retweets === "string" &&
+        currentTweet.retweets === ""
+      ) {
+        currentTweet.id = currentTweet.id + "R";
+        currentTweet.retweets = 1;
+        copyContent[index].retweets = 1;
+      } else if (typeof currentTweet.retweets === "string") {
+        currentTweet.id = currentTweet.id + "R";
+      } else {
+        currentTweet.id = currentTweet.id + "R";
+        currentTweet.retweets += 1;
+        copyContent[index].retweets += 1;
+      }
+      currentTweet.retweeted = true;
+      currentTweet.original = false;
+      copyContent[index].retweeted = true;
+      setContent([...copyContent]);
+      setContent([currentTweet, ...content]);
+      //! go to top of feed
+    } else return;
   };
 
   const handleLike = (id) => {
-    // let currentTweetO = content.find(tweet => tweet.id === id);
-    // let currentTweetR = content.find(tweet => tweet.id === id + "R");
-    // let indexTweetO = content.findIndex((tweet) => tweet.id === id);
-    // let indexTweetR = content.findIndex((tweet) => tweet.id === id + "R");
+    if (!showMyTweets) {
+      // let currentTweetO = content.find(tweet => tweet.id === id);
+      // let currentTweetR = content.find(tweet => tweet.id === id + "R");
+      // let indexTweetO = content.findIndex((tweet) => tweet.id === id);
+      // let indexTweetR = content.findIndex((tweet) => tweet.id === id + "R");
 
-    let currentTweet = content.find((tweet) => tweet.id === id);
-    let index = content.findIndex((tweet) => tweet.id === id);
-    if (typeof currentTweet.likes === "string" && currentTweet.likes === "") {
-      currentTweet.likes = 1;
-      currentTweet.liked = true;
-    } else if (typeof currentTweet.likes === "string") {
-      currentTweet.liked = true;
-    } else {
-      currentTweet.likes += 1;
-      currentTweet.liked = true;
-    }
-    let currentContent = [...content];
-    currentContent.splice(index, 1, currentTweet);
-    setContent(currentContent);
+      let currentTweet = content.find((tweet) => tweet.id === id);
+      let index = content.findIndex((tweet) => tweet.id === id);
+      if (typeof currentTweet.likes === "string" && currentTweet.likes === "") {
+        currentTweet.likes = 1;
+        currentTweet.liked = true;
+      } else if (typeof currentTweet.likes === "string") {
+        currentTweet.liked = true;
+      } else {
+        currentTweet.likes += 1;
+        currentTweet.liked = true;
+      }
+      let currentContent = [...content];
+      currentContent.splice(index, 1, currentTweet);
+      setContent(currentContent);
+    } else return;
   };
 
   return (
     <Container>
       {!toggleCompose ? (
         <>
-          <Header displayName={displayName} handleLogout={handleLogout} />
+          <Header
+            displayName={displayName}
+            handleLogout={handleLogout}
+            toggleModal={toggleModal}
+            handleModal={handleModal}
+          />
           <StyledFeed>
-            {content.map((each) => {
-              return (
-                <Tweet
-                  // tweet={each} ? can use this to access all props instead?
-                  key={each.id}
-                  id={each.id}
-                  avatar={each.avatar}
-                  displayName={each.displayName}
-                  userName={each.userName}
-                  time={each.time}
-                  content={each.content}
-                  comments={each.comments}
-                  retweets={each.retweets}
-                  retweeted={each.retweeted}
-                  original={each.original}
-                  handleRetweet={handleRetweet}
-                  likes={each.likes}
-                  liked={each.liked}
-                  handleLike={handleLike}
-                />
-              );
-            })}
+            {showMyTweets ? (
+              <>
+                {myTweets.map((each, i) => {
+                  return (
+                    <Tweet
+                      key={i}
+                      displayName={displayName}
+                      userName={userName}
+                      content={each}
+                      handleLike={handleLike}
+                      handleRetweet={handleRetweet}
+                    />
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                {content.map((each) => {
+                  return (
+                    <Tweet
+                      // tweet={each} ? can use this to access all props instead?
+                      key={each.id}
+                      id={each.id}
+                      avatar={each.avatar}
+                      displayName={each.displayName}
+                      userName={each.userName}
+                      time={each.time}
+                      content={each.content}
+                      comments={each.comments}
+                      retweets={each.retweets}
+                      retweeted={each.retweeted}
+                      original={each.original}
+                      handleRetweet={handleRetweet}
+                      likes={each.likes}
+                      liked={each.liked}
+                      handleLike={handleLike}
+                    />
+                  );
+                })}
+              </>
+            )}
             <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>
           </StyledFeed>
-          <Footer />
+
+          <Footer closeMyTweets={closeMyTweets} />
+          {toggleModal ? (
+            <Modal
+              displayName={displayName}
+              userName={userName}
+              setToggleModal={setToggleModal}
+              handleLogout={handleLogout}
+              handleMyTweets={handleMyTweets}
+            />
+          ) : null}
         </>
       ) : (
         <Compose
