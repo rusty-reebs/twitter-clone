@@ -25,16 +25,19 @@ const StyledDiv = styled.div`
 `;
 
 const ComposeAvatarDiv = styled.div`
+  display: flex;
   width: 15%;
+  justify-content: center;
+  //   align-items: center;
   // border-radius: 50%;
-  position: relative;
+  //   position: relative;
 `;
-const ComposeAvatarImg = styled.img`
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+// const ComposeAvatarImg = styled.img`
+//   position: absolute;
+//   top: 10%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// `;
 
 const StyledTextArea = styled.textarea`
   font-family: "Roboto", "IBM Plex Sans", sans-serif;
@@ -116,8 +119,8 @@ const Compose = (props) => {
 export default Compose;
 export {
   StyledDiv,
-  ComposeAvatarDiv,
-  ComposeAvatarImg,
+  //   ComposeAvatarDiv,
+  //   ComposeAvatarImg,
   StyledIconsDiv,
   StyledSpan,
 };

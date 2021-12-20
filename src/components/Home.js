@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { app, db } from "../firebase/firebase.config";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -80,14 +82,14 @@ const Home = (props) => {
     // if (!user.isAnonymous) fetchUser();
     if (!user.isAnonymous) logInUser();
     if (user.isAnonymous) {
-      setUserName("guest");
+      setUserName("@guest");
       setDisplayName("Guest");
     }
   }, [user, loading]);
 
-  useEffect(() => {
-    document.title = "My Tweets / Tweeter";
-  }, [showMyTweets]);
+  // useEffect(() => {
+  //   document.title = "My Tweets / Tweeter"; //! shows on Home too
+  // }, [showMyTweets]);
 
   // const fetchUser = async () => {
   //   try {
@@ -180,19 +182,25 @@ const Home = (props) => {
 
   // let myTweets = [];
   const handleMyTweets = async () => {
-    const currentUser = await fetchUserDb();
-    console.log(currentUser.tweets);
-    myTweets = currentUser.tweets;
-    // myTweets = currentUser.tweets.map((each, i) => (
-    // <Tweet
-    // key={i}
-    // displayName={currentUser.displayName}
-    // userName={currentUser.userName}
-    // content={each}
-    // />
-    // ));
-    console.log("myTweets", myTweets);
-    setShowMyTweets(true);
+    if (user.isAnonymous) {
+      toast.error("You're a guest, you don't have any saved tweets.😥");
+    } else {
+      const currentUser = await fetchUserDb();
+      console.log(currentUser.tweets);
+      myTweets = currentUser.tweets;
+
+      // myTweets = currentUser.tweets.map((each, i) => (
+      // <Tweet
+      // key={i}
+      // displayName={currentUser.displayName}
+      // userName={currentUser.userName}
+      // content={each}
+      // />
+      // ));
+      console.log("myTweets", myTweets);
+      setShowMyTweets(true);
+      document.title = "My Tweets / Tweeter";
+    }
   };
 
   const closeMyTweets = () => {
@@ -254,6 +262,7 @@ const Home = (props) => {
 
   return (
     <Container>
+      <ToastContainer />
       {!toggleCompose ? (
         <>
           <Header
@@ -265,18 +274,20 @@ const Home = (props) => {
           <StyledFeed>
             {showMyTweets ? (
               <>
-                {myTweets.map((each, i) => {
-                  return (
-                    <Tweet
-                      key={i}
-                      displayName={displayName}
-                      userName={userName}
-                      content={each}
-                      handleLike={handleLike}
-                      handleRetweet={handleRetweet}
-                    />
-                  );
-                })}
+                {myTweets
+                  .map((each, i) => {
+                    return (
+                      <Tweet
+                        key={i}
+                        displayName={displayName}
+                        userName={userName}
+                        content={each}
+                        handleLike={handleLike}
+                        handleRetweet={handleRetweet}
+                      />
+                    );
+                  })
+                  .reverse()}
               </>
             ) : (
               <>

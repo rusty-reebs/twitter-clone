@@ -27,7 +27,8 @@ const HeaderDiv = styled.div`
 
 const HeaderAvatarDiv = styled(HeaderDiv)`
   display: flex;
-  align-content: center;
+  align-items: center;
+  justify-items: center;
   width: 10%;
   margin-left: 0.5rem;
 `;

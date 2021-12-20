@@ -9,7 +9,8 @@ const AvatarDiv = styled.div`
   // height = 30;
   width: 2rem;
   height: 2rem;
-  margin: auto;
+  // margin: auto;
+  margin: default;
   background-color: #1da1f2;
   border-radius: 50%;
 `;
@@ -32,3 +33,4 @@ const Avatar = (props) => {
 };
 
 export default Avatar;
+export { AvatarDiv };

@@ -4,9 +4,8 @@ import React from "react";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
 import {
-  StyledDiv,
-  ComposeAvatarDiv,
-  ComposeAvatarImg,
+  //   ComposeAvatarDiv,
+  //   ComposeAvatarImg,
   StyledIconsDiv,
   StyledSpan,
 } from "./Compose";
@@ -15,9 +14,24 @@ import commentIcon from "../img/comment.png";
 import retweetIcon from "../img/retweet.png";
 import shareIcon from "../img/share.png";
 
-const TweetDiv = styled.div`
+const StyledTweetContainer = styled.div`
   border-bottom: 0.5px solid lightgrey;
   z-index: -1;
+`;
+
+const StyledTweetDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+`;
+
+const StyledRetweetDiv = styled.div`
+  display: flex;
+  margin-left: 15%;
+`;
+
+const AvatarAndContentDiv = styled.div`
+  display: flex;
 `;
 
 const StyledContentDiv = styled.div`
@@ -28,9 +42,14 @@ const StyledContentDiv = styled.div`
   padding-right: 0.6rem;
 `;
 
-const TweetAvatarDiv = ComposeAvatarDiv;
-const TweetAvatarImg = styled(ComposeAvatarImg)`
-  top: 2vh;
+const TweetAvatarDiv = styled.div`
+  display: flex;
+  width: 15%;
+  justify-content: center;
+`;
+
+const TweetAvatarImg = styled.img`
+  border-radius: 50%;
 `;
 
 const TweetIconsDiv = styled.div`
@@ -45,39 +64,32 @@ const StyledTweetSpan = styled(StyledSpan)`
 
 const Tweet = (props) => {
   return (
-    <TweetDiv>
-      <StyledDiv>
-        <TweetAvatarDiv>
-          {props.avatar ? (
-            <TweetAvatarImg
-              style={{ borderRadius: "50%" }}
-              src={props.avatar}
-              height={30}
-              alt="avatar"
-            />
-          ) : (
-            <Avatar displayName={props.displayName} />
-          )}
-        </TweetAvatarDiv>
-        <StyledContentDiv>
-          <div>
-            {props.retweeted && !props.original && (
-              <div style={{ display: "flex" }}>
-                <img src={retweetIcon} height={15} alt="retweet" />
-                &nbsp;
-                <p>You Retweeted</p>
-              </div>
+    <StyledTweetContainer>
+      <StyledTweetDiv>
+        {props.retweeted && !props.original && (
+          <StyledRetweetDiv>
+            <img src={retweetIcon} height={15} alt="retweet" />
+            &nbsp;
+            <p>You Retweeted</p>
+          </StyledRetweetDiv>
+        )}
+        <AvatarAndContentDiv>
+          <TweetAvatarDiv>
+            {props.avatar ? (
+              <TweetAvatarImg src={props.avatar} height={"30"} alt="avatar" />
+            ) : (
+              <Avatar displayName={props.displayName} />
             )}
+          </TweetAvatarDiv>
+          <StyledContentDiv>
             <p>
               <strong>{props.displayName}</strong>
               &nbsp;{props.userName}&nbsp;&nbsp;{props.time}
             </p>
-          </div>
-          <div>
             <p>{props.content}</p>
-          </div>
-        </StyledContentDiv>
-      </StyledDiv>
+          </StyledContentDiv>
+        </AvatarAndContentDiv>
+      </StyledTweetDiv>
       <StyledIconsDiv>
         <TweetIconsDiv>
           <img src={commentIcon} height={20} alt="comment" />
@@ -110,7 +122,7 @@ const Tweet = (props) => {
         </TweetIconsDiv>
         <img src={shareIcon} height={20} alt="share" />
       </StyledIconsDiv>
-    </TweetDiv>
+    </StyledTweetContainer>
   );
 };
 

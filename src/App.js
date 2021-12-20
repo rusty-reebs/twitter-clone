@@ -1,5 +1,9 @@
 // App.js
 
+//TODO fix avatar component
+//TODO likes/retweets counts on retweets
+//TODO populate feed with API
+
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
