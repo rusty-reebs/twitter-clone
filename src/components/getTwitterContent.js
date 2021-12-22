@@ -1,14 +1,6 @@
 // getTwitterContent.js
 
-var myHeaders = new Headers();
-myHeaders.append(
-  "Authorization",
-  "Bearer AAAAAAAAAAAAAAAAAAAAAGHyXAEAAAAAw3I6SZSYMGYzIOMyOc%2BAar3wBP8%3DS3LtHBJ5cRvV7KuvcMvYvOf1VwPvc5sMxiDycMdWll1Tcycf0K"
-);
-myHeaders.append(
-  "Cookie",
-  'guest_id=v1%3A164000592726401717; guest_id_ads=v1%3A164000592726401717; guest_id_marketing=v1%3A164000592726401717; personalization_id="v1_A+KUMWJFAAPekutoirSInw=="'
-);
+import myHeaders from "./tokens";
 
 var requestOptions = {
   method: "GET",

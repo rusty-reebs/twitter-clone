@@ -4,6 +4,7 @@
 //TODO likes/retweets counts on retweets
 //TODO populate feed with API
 //TODO write tests
+//TODO styling breakpoints
 
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";

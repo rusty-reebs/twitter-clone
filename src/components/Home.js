@@ -87,6 +87,7 @@ const Home = (props) => {
       setDisplayName("Guest");
     }
     // getTwitterContent();
+    // add fetched content to state
   }, [user, loading]);
 
   const fetchUserDb = async () => {
