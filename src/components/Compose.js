@@ -32,12 +32,6 @@ const ComposeAvatarDiv = styled.div`
   // border-radius: 50%;
   //   position: relative;
 `;
-// const ComposeAvatarImg = styled.img`
-//   position: absolute;
-//   top: 10%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// `;
 
 const StyledTextArea = styled.textarea`
   font-family: "Roboto", "IBM Plex Sans", sans-serif;
@@ -117,10 +111,4 @@ const Compose = (props) => {
 };
 
 export default Compose;
-export {
-  StyledDiv,
-  //   ComposeAvatarDiv,
-  //   ComposeAvatarImg,
-  StyledIconsDiv,
-  StyledSpan,
-};
+export { StyledDiv, StyledIconsDiv, StyledSpan };

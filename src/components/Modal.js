@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
-import { AvatarDiv } from "./Avatar";
 import { StyledSpan } from "./Compose";
 // import { sizes, devices } from "../styling";
 
@@ -50,10 +49,6 @@ const ModalDiv = styled.div`
   padding-bottom: 1rem;
   border-bottom: 0.1rem solid lightgrey;
 `;
-
-// const ModalAvatarDiv = styled(AvatarDiv)`
-//   margin: default;
-// `;
 
 const Modal = (props) => {
   useEffect(() => {

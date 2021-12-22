@@ -1,8 +1,9 @@
 // App.js
 
-//TODO fix avatar component
+//TODO fix modal close window listener
 //TODO likes/retweets counts on retweets
 //TODO populate feed with API
+//TODO write tests
 
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -18,7 +19,7 @@ import {
   signInAnonymously,
 } from "firebase/auth";
 import Start from "./Start";
-import Form from "./components/common/Form";
+import Form from "./components/Form";
 import Home from "./components/Home";
 // import Compose from "./components/Compose";
 

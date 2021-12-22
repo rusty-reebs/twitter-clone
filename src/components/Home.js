@@ -18,6 +18,8 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 // import { sizes, devices } from "../styling";
+import getTwitterContent from "./getTwitterContent";
+import { processedTweets } from "./getTwitterContent";
 import Header from "./Header";
 import Footer from "./Footer";
 import Tweet from "./Tweet";
@@ -79,33 +81,13 @@ const Home = (props) => {
     console.log(user);
     if (!user) return navigate("/");
     if (error) console.error(error);
-    // if (!user.isAnonymous) fetchUser();
     if (!user.isAnonymous) logInUser();
     if (user.isAnonymous) {
       setUserName("@guest");
       setDisplayName("Guest");
     }
+    // getTwitterContent();
   }, [user, loading]);
-
-  // useEffect(() => {
-  //   document.title = "My Tweets / Tweeter"; //! shows on Home too
-  // }, [showMyTweets]);
-
-  // const fetchUser = async () => {
-  //   try {
-  //     const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-  //     const querySnapshot = await getDocs(q);
-  //     let currentUser;
-  //     querySnapshot.forEach((doc) => {
-  //       // console.log(doc.id, " => ", doc.data());
-  //       currentUser = doc.data();
-  //     });
-  //     setUserName(currentUser.userName);
-  //     setDisplayName(currentUser.displayName);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const fetchUserDb = async () => {
     try {
@@ -180,7 +162,6 @@ const Home = (props) => {
     setToggleModal(!toggleModal);
   };
 
-  // let myTweets = [];
   const handleMyTweets = async () => {
     if (user.isAnonymous) {
       toast.error("You're a guest, you don't have any saved tweets.😥");
@@ -188,15 +169,6 @@ const Home = (props) => {
       const currentUser = await fetchUserDb();
       console.log(currentUser.tweets);
       myTweets = currentUser.tweets;
-
-      // myTweets = currentUser.tweets.map((each, i) => (
-      // <Tweet
-      // key={i}
-      // displayName={currentUser.displayName}
-      // userName={currentUser.userName}
-      // content={each}
-      // />
-      // ));
       console.log("myTweets", myTweets);
       setShowMyTweets(true);
       document.title = "My Tweets / Tweeter";
@@ -296,6 +268,28 @@ const Home = (props) => {
                     <Tweet
                       // tweet={each} ? can use this to access all props instead?
                       key={each.id}
+                      id={each.id}
+                      avatar={each.avatar}
+                      displayName={each.displayName}
+                      userName={each.userName}
+                      time={each.time}
+                      content={each.content}
+                      comments={each.comments}
+                      retweets={each.retweets}
+                      retweeted={each.retweeted}
+                      original={each.original}
+                      handleRetweet={handleRetweet}
+                      likes={each.likes}
+                      liked={each.liked}
+                      handleLike={handleLike}
+                    />
+                  );
+                })}
+                {processedTweets.map((each) => {
+                  return (
+                    <Tweet
+                      // tweet={each} ? can use this to access all props instead?
+                      key={each.index + 100}
                       id={each.id}
                       avatar={each.avatar}
                       displayName={each.displayName}

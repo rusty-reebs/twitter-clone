@@ -3,7 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
-import { Maindiv, Paragraph, StyledButton } from "../../Start";
+import { Maindiv, Paragraph, StyledButton } from "../Start";
 
 const StyledForm = styled.form`
   padding-top: 3rem;
@@ -18,7 +18,7 @@ const StyledInput = styled.input`
   border-radius: 0.5rem;
 `;
 
-const birdIcon = require("../../img/tweeter-3.png");
+const birdIcon = require("../img/tweeter-3.png");
 
 const Form = (props) => {
   return (

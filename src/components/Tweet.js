@@ -3,12 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 // import { sizes, devices } from "../styling";
-import {
-  //   ComposeAvatarDiv,
-  //   ComposeAvatarImg,
-  StyledIconsDiv,
-  StyledSpan,
-} from "./Compose";
+import { StyledIconsDiv, StyledSpan } from "./Compose";
 import Avatar from "./Avatar";
 import commentIcon from "../img/comment.png";
 import retweetIcon from "../img/retweet.png";
