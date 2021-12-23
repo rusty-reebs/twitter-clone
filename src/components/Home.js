@@ -18,7 +18,7 @@ import {
   arrayUnion,
 } from "firebase/firestore";
 // import { sizes, devices } from "../styling";
-import getTwitterContent from "./getTwitterContent";
+import deliverTwitterContent from "./getTwitterContent";
 import { processedTweets } from "./getTwitterContent";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -86,7 +86,7 @@ const Home = (props) => {
       setUserName("@guest");
       setDisplayName("Guest");
     }
-    // getTwitterContent();
+    // deliverTwitterContent();
     // add fetched content to state
   }, [user, loading]);
 
@@ -318,9 +318,9 @@ const Home = (props) => {
             <Modal
               displayName={displayName}
               userName={userName}
-              setToggleModal={setToggleModal}
               handleLogout={handleLogout}
               handleMyTweets={handleMyTweets}
+              handleModal={handleModal}
             />
           ) : null}
         </>

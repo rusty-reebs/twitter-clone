@@ -1,6 +1,6 @@
 // Modal.js
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 import { StyledSpan } from "./Compose";
@@ -51,12 +51,15 @@ const ModalDiv = styled.div`
 `;
 
 const Modal = (props) => {
+  const modalRef = useRef();
   useEffect(() => {
-    const closeModal = () => {
-      props.setToggleModal(false);
+    const closeModal = (e) => {
+      if (!modalRef.current?.contains(e.target)) {
+        props.handleModal();
+      }
     };
-
     document.addEventListener("click", closeModal);
+
     return () => {
       document.removeEventListener("click", closeModal);
     };
@@ -64,7 +67,7 @@ const Modal = (props) => {
 
   return (
     <ModalContainer>
-      <ModalBox>
+      <ModalBox id="modal" ref={modalRef}>
         <ModalUserDiv>
           <Avatar displayName={props.displayName} />
           <h3>{props.displayName}</h3>
@@ -72,7 +75,12 @@ const Modal = (props) => {
         </ModalUserDiv>
         <ModalDiv>
           <p>
-            <span onClick={props.handleMyTweets}>
+            <span
+              onClick={() => {
+                props.handleMyTweets();
+                props.handleModal();
+              }}
+            >
               <StyledSpan>chat_bubble</StyledSpan>&nbsp;&nbsp;My Tweets
             </span>
           </p>
