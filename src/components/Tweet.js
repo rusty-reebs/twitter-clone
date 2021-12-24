@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { sizes, devices } from "../styling";
+import { devices } from "../styling";
 import { StyledIconsDiv, StyledSpan } from "./Compose";
 import Avatar from "./Avatar";
 import commentIcon from "../img/comment.png";
@@ -56,6 +56,7 @@ const TweetIconsDiv = styled.div`
 
 const StyledTweetSpan = styled(StyledSpan)`
   color: ${(props) => (props.liked ? "red" : "black")};
+  cursor: pointer;
 `;
 
 const Tweet = (props) => {
@@ -96,6 +97,7 @@ const Tweet = (props) => {
             <img src={greenRetweetIcon} height={20} alt="retweet" />
           ) : (
             <img
+              style={{ cursor: "pointer" }}
               src={blackRetweetIcon}
               height={20}
               alt="retweet"

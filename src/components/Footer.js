@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { sizes, devices } from "../styling";
+import { devices } from "../styling";
 import birdhouseIconW from "../img/icons8-birdhouse-50white.png";
 import birdhouseIconB from "../img/icons8-birdhouse-50black.png";
 import searchIcon from "../img/icons8-magnifying-glass-64.png";
@@ -21,10 +21,10 @@ const StyledFooter = styled.div`
   z-index: 100;
 
   @media ${devices.laptop} {
-    position: default;
+    position: static;
     bottom: 0;
-    max-width: 60%;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
@@ -39,11 +39,13 @@ const Icon = styled.img`
   transform: translate(-50%, -50%);
   height: 30;
 `;
+
 const Footer = (props) => {
   return (
     <StyledFooter>
       <IconDiv onClick={() => props.closeMyTweets()}>
         <Icon
+          style={{ cursor: "pointer" }}
           src={props.showMyTweets ? birdhouseIconW : birdhouseIconB}
           alt={"icon"}
         />

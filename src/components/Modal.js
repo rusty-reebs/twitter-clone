@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 import { StyledSpan } from "./Compose";
-// import { sizes, devices } from "../styling";
+import { devices } from "../styling";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -13,6 +13,12 @@ const ModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
+
+  @media ${devices.laptop} {
+    max-width: 60vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+  }
 `;
 
 const ModalBox = styled.div`
@@ -29,6 +35,10 @@ const ModalBox = styled.div`
   border: 1px solid #999;
   overflow: auto;
   text-align: left;
+
+  @media ${devices.laptop} {
+    width: 40%;
+  }
 `;
 
 const ModalUserDiv = styled.div`
@@ -76,6 +86,7 @@ const Modal = (props) => {
         <ModalDiv>
           <p>
             <span
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 props.handleMyTweets();
                 props.handleModal();
@@ -103,7 +114,7 @@ const Modal = (props) => {
         </ModalDiv>
         <ModalDiv>
           <p>
-            <span onClick={props.handleLogout}>
+            <span style={{ cursor: "pointer" }} onClick={props.handleLogout}>
               <StyledSpan>logout</StyledSpan>&nbsp;&nbsp;Log Out
             </span>
           </p>

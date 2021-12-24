@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { sizes, devices } from "../styling";
+import { devices } from "../styling";
 import birdIcon from "../img/tweeter-3.png";
 import starsIcon from "../img/icons8-stars-32.png";
 import Avatar from "./Avatar";
@@ -17,11 +17,15 @@ const StyledHeader = styled.div`
   gap: 1rem;
   border-bottom: 1px solid lightgrey;
   z-index: 100;
+
+  @media ${devices.laptop} {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const HeaderDiv = styled.div`
   width: 10%;
-  // border-radius: 50%;
   position: relative;
 `;
 
@@ -31,6 +35,7 @@ const HeaderAvatarDiv = styled(HeaderDiv)`
   justify-items: center;
   width: 10%;
   margin-left: 0.5rem;
+  cursor: pointer;
 `;
 
 const HeaderImg = styled.img`

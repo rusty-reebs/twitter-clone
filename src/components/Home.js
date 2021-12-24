@@ -17,7 +17,7 @@ import {
   query,
   arrayUnion,
 } from "firebase/firestore";
-import { sizes, devices } from "../styling";
+import { devices } from "../styling";
 import deliverTwitterContent from "./getTwitterContent";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -36,9 +36,14 @@ const Container = styled.div`
   font-family: "Roboto", "IBM Plex Sans", sans-serif;
   display: flex;
   flex-direction: column;
+  background-color: white;
 
   @media ${devices.laptop} {
     max-width: 60vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    border-left: 0.1rem solid lightgrey;
+    border-right: 0.1rem solid lightgrey;
   }
 `;
 
@@ -55,6 +60,13 @@ const StyledComposeButton = styled.div`
   color: white;
   font-size: xx-large;
   text-decoration: none;
+  cursor: pointer;
+
+  @media ${devices.laptop} {
+    position: fixed;
+    bottom: 14vh;
+    right: 25vw;
+  }
 `;
 
 const StyledFeed = styled.div`
@@ -157,6 +169,9 @@ const Home = (props) => {
     setContent(updateContent);
     handleCompose();
     console.log(content);
+    if (showMyTweets) {
+      setShowMyTweets(false);
+    }
     if (!user.isAnonymous) {
       addTweetToDb(newTweet.content);
     }
@@ -304,27 +319,6 @@ const Home = (props) => {
                     />
                   );
                 })}
-                {/* {processedTweets.map((each) => {
-                  return (
-                    <Tweet
-                      // tweet={each} ? can use this to access all props instead?
-                      key={each.index + 100}
-                      id={each.id}
-                      avatar={each.avatar}
-                      displayName={each.displayName}
-                      userName={each.userName}
-                      content={each.content}
-                      comments={each.comments}
-                      retweets={each.retweets}
-                      retweeted={each.retweeted}
-                      original={each.original}
-                      handleRetweet={handleRetweet}
-                      likes={each.likes}
-                      liked={each.liked}
-                      handleLike={handleLike}
-                    />
-                  );
-                })} */}
               </>
             )}
             <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>

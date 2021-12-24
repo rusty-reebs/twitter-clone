@@ -2,11 +2,17 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { sizes, devices } from "../styling";
+import { devices } from "../styling";
 import { Maindiv, Paragraph, StyledButton } from "../Start";
 
 const StyledForm = styled.form`
   padding-top: 3rem;
+
+  @media ${devices.laptop} {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -16,6 +22,10 @@ const StyledInput = styled.input`
   margin: 0.5rem 0;
   box-sizing: border-box;
   border-radius: 0.5rem;
+
+  @media ${devices.laptop} {
+    width: 60%;
+  }
 `;
 
 const birdIcon = require("../img/tweeter-3.png");
@@ -42,18 +52,20 @@ const Form = (props) => {
             />
           </div>
         ) : null}
-        <StyledInput
-          type="email"
-          id="email"
-          placeholder="Email address"
-          onChange={(e) => props.setEmail(e.target.value)}
-        />
-        <StyledInput
-          type="password"
-          id="password"
-          placeholder="Password"
-          onChange={(e) => props.setPassword(e.target.value)}
-        />
+        <div>
+          <StyledInput
+            type="email"
+            id="email"
+            placeholder="Email address"
+            onChange={(e) => props.setEmail(e.target.value)}
+          />
+          <StyledInput
+            type="password"
+            id="password"
+            placeholder="Password"
+            onChange={(e) => props.setPassword(e.target.value)}
+          />
+        </div>
       </StyledForm>
       <StyledButton onClick={props.handleAction}>{props.title}</StyledButton>
     </Maindiv>

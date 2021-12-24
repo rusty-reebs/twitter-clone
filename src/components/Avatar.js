@@ -2,6 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
+import { devices } from "../styling";
 
 const AvatarDiv = styled.div`
   display: flex;
@@ -13,6 +14,9 @@ const AvatarDiv = styled.div`
   margin: default;
   background-color: #1da1f2;
   border-radius: 50%;
+
+  @media ${devices.laptop} {
+  }
 `;
 
 const AvatarLetter = styled.h2`

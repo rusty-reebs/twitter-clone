@@ -1,7 +1,9 @@
+// Start.js
+
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import { sizes, devices } from "./styling";
+import { devices } from "./styling";
 
 const Maindiv = styled.div`
   height: 100vh;
@@ -13,6 +15,13 @@ const Maindiv = styled.div`
   padding: 1.5rem;
   font-family: "Roboto", "IBM Plex Sans", sans-serif;
   color: black;
+
+  @media ${devices.laptop} {
+    max-width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
 `;
 
 const Heading = styled.h1`
@@ -40,6 +49,11 @@ const StyledButton = styled.button`
   border-radius: 3rem;
   margin: 0.5rem;
   border: none;
+  cursor: pointer;
+
+  @media ${devices.laptop} {
+    width: 30%;
+  }
 `;
 
 const SigninButton = styled(StyledButton)`

@@ -2,21 +2,33 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { sizes, devices } from "../styling";
 import { StyledHeader, HeaderImg } from "./Header";
 import { StyledButton } from "../Start";
 import backIcon from "../img/icons8-left-24.png";
 import Avatar from "./Avatar";
+import { devices } from "../styling";
+
+const StyledComposeDiv = styled.div`
+  @media ${devices.laptop} {
+  }
+`;
 
 const TweetButton = styled(StyledButton)`
   font-size: smaller;
   padding-left: 1rem;
   padding-right: 1rem;
+  cursor: pointer;
+
+  @media ${devices.laptop} {
+    width: 15%;
+    font-size: medium;
+  }
 `;
 
 const StyledBackArrow = styled.div`
   width: 10%;
   position: relative;
+  cursor: pointer;
 `;
 
 const StyledDiv = styled.div`
@@ -28,9 +40,6 @@ const ComposeAvatarDiv = styled.div`
   display: flex;
   width: 15%;
   justify-content: center;
-  //   align-items: center;
-  // border-radius: 50%;
-  //   position: relative;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -68,19 +77,11 @@ const StyledSpan = styled.span`
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
 `;
 
 const Compose = (props) => {
   return (
-    <div>
+    <StyledComposeDiv>
       <StyledHeader>
         <StyledBackArrow onClick={props.handleCompose}>
           <HeaderImg src={backIcon} height={30} alt="back" />
@@ -106,7 +107,7 @@ const Compose = (props) => {
         <StyledSpan>poll</StyledSpan>
         <StyledSpan>event</StyledSpan>
       </StyledIconsDiv>
-    </div>
+    </StyledComposeDiv>
   );
 };
 

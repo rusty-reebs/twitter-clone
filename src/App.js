@@ -1,9 +1,7 @@
 // App.js
 
 //TODO populate feed with API
-//TODO set state as API response + content
 //TODO write tests
-//TODO styling breakpoints
 
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -28,6 +26,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
+  body {
+    display: flex;
+  // background-color: #1da1f2;
+  background-image: linear-gradient( 215deg, #ABDCFF 10%, #0396FF 100%);
+}
   html {
     height: 100%;
   }
