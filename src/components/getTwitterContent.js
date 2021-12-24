@@ -8,190 +8,65 @@ var requestOptions = {
   redirect: "follow",
 };
 
-const getTwitterContent = () => {
-  fetch(
-    "/tweets/search/recent?query=(from%3AThePracticalDev%20OR%20from%3AfreeCodeCamp%20OR%20from%3Ahashnode%20OR%20from%3Agithub)&tweet.fields=id,text,public_metrics&expansions=author_id&user.fields=profile_image_url",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-};
-
-const raw = {
-  data: [
-    {
-      public_metrics: {
-        retweet_count: 2,
-        reply_count: 0,
-        like_count: 0,
-        quote_count: 0,
-      },
-      author_id: "3957817872",
-      id: "1473220459260899328",
-      text: "RT @sandro_vol: Exciting news!  🎉\n\nI am joining @Hashnode as a full-stack engineer in January 😍\n\nI am really excited working for a high-gro…",
-    },
-    {
-      public_metrics: {
-        retweet_count: 4,
-        reply_count: 0,
-        like_count: 7,
-        quote_count: 0,
-      },
-      author_id: "2735246778",
-      id: "1473220197804920833",
-      text: "I'd like to show you a couple of Tailwind CSS buttons that I've built together with my friends for the Flowbite library.\n\n{ author: @themesberg } #DEVCommunity\nhttps://t.co/Ux5hhgK9wt",
-    },
-    {
-      public_metrics: {
-        retweet_count: 1,
-        reply_count: 0,
-        like_count: 0,
-        quote_count: 0,
-      },
-      author_id: "3957817872",
-      id: "1473212035823378432",
-      text: "RT @IrinaTheNerd: I'm getting serious, y'all: \nIt can't rain all the time (Mental health and winter sads)\n{ by @irinaTheNerd } from @hashno…",
-    },
-    {
-      public_metrics: {
-        retweet_count: 0,
-        reply_count: 0,
-        like_count: 6,
-        quote_count: 0,
-      },
-      author_id: "2735246778",
-      id: "1473210635102175233",
-      text: "In my experience, the display property raises a lot of questions for novice developers. I created a live cheat sheet to fix this issue!\n\n#DEVCommunity\nhttps://t.co/F1u30kUNQ4",
-    },
-    {
-      public_metrics: {
-        retweet_count: 7,
-        reply_count: 1,
-        like_count: 24,
-        quote_count: 0,
-      },
-      author_id: "2735246778",
-      id: "1473197299849388032",
-      text: "Developers and engineering managers should cultivate a continuous learning mindset: constantly develop new skills, as well as integrate learning into the workflow.\n\n{ author: @VectorlyHQ } #DEVCommunity\nhttps://t.co/53dWP6hn8R",
-    },
-    {
-      public_metrics: {
-        retweet_count: 0,
-        reply_count: 1,
-        like_count: 12,
-        quote_count: 0,
-      },
-      author_id: "3957817872",
-      id: "1473193910881165312",
-      text: "Congratulations everyone ✨\n\nIf you didn't see your name on the list, keep writing/reading and next year, your name will stand next to these incredible writers/readers.",
-    },
-    {
-      public_metrics: {
-        retweet_count: 2,
-        reply_count: 6,
-        like_count: 24,
-        quote_count: 1,
-      },
-      author_id: "3957817872",
-      id: "1473193139343138818",
-      text: "@tapasadhikary @lo_victoria2666 @miguendes @denicmarko @ayushi7rawat @dannysteenman @horn_travis @polilluminato @oliverjumpertz @akshaymarch7 @DailyDevTips1 @miatemma @mcsee1 @VladPasca5 @MarcinWosinek @myogeshchavan97 @unclebigbay143 @askRodney @RitzaCo @jsdisco @nicolas_frankel @FavouriteJome1 @andrewbaisden @saviomartin7 @WankhadeRutik @olanetsoft @lalitcodes ✍ Top Writer - 2021 Tech Awards\n\n@lo_victoria2666\n@unclebigbay143\n@tapasadhikary\n@avneesh0612\n@saviomartin7\n@ayushi7rawat\n@chandrajidev\n@coffeestasia\n@olanetsoft\n@SuhailKakar",
-    },
-    {
-      public_metrics: {
-        retweet_count: 0,
-        reply_count: 3,
-        like_count: 11,
-        quote_count: 0,
-      },
-      author_id: "3957817872",
-      id: "1473193049551421444",
-      text: "@tapasadhikary @lo_victoria2666 @miguendes @denicmarko @ayushi7rawat @dannysteenman @horn_travis @polilluminato @oliverjumpertz @akshaymarch7 @DailyDevTips1 @miatemma @mcsee1 @VladPasca5 @MarcinWosinek @myogeshchavan97 @unclebigbay143 @askRodney @RitzaCo @jsdisco @nicolas_frankel 📖 Top Reader - 2021 Tech Awards\n\n@FavouriteJome1\nVivek Tiwari\n@andrewbaisden\n@saviomartin7\n@WankhadeRutik\n@lo_victoria2666\n@tapasadhikary\n@myogeshchavan97\n@olanetsoft\n@lalitcodes",
-    },
-    {
-      public_metrics: {
-        retweet_count: 1,
-        reply_count: 2,
-        like_count: 11,
-        quote_count: 0,
-      },
-      author_id: "3957817872",
-      id: "1473192869674561538",
-      text: "@tapasadhikary @lo_victoria2666 @miguendes @denicmarko @ayushi7rawat @dannysteenman @horn_travis @polilluminato @oliverjumpertz @akshaymarch7 @DailyDevTips1 @miatemma @mcsee1 @VladPasca5 @MarcinWosinek @myogeshchavan97 @unclebigbay143 🔎 Top Researcher - 2021 Tech Awards\n\n@DailyDevTips1\nHimanshu Sheth\nTomasz Węgrzanowski\n@myogeshchavan97\n@miatemma\n@askRodney\n@RitzaCo\n@unclebigbay143\n@jsdisco\n@nicolas_frankel",
-    },
-    {
-      public_metrics: {
-        retweet_count: 0,
-        reply_count: 2,
-        like_count: 10,
-        quote_count: 0,
-      },
-      author_id: "3957817872",
-      id: "1473192732571090946",
-      text: "@tapasadhikary @lo_victoria2666 @miguendes @denicmarko @ayushi7rawat @dannysteenman @horn_travis @polilluminato @oliverjumpertz @akshaymarch7 🌟 Most Prolific Writer - 2021 Tech Awards\n\n@DailyDevTips1\nTomasz Węgrzanowski\n@miatemma\nHaorong Li\n@mcsee1\n@VladPasca5\n@MarcinWosinek\n@myogeshchavan97\n@unclebigbay143\nRammina",
-    },
-  ],
-  includes: {
-    users: [
-      {
-        id: "3957817872",
-        name: "Hashnode",
-        profile_image_url:
-          "https://pbs.twimg.com/profile_images/1468094435321810948/LelFxTd6_normal.jpg",
-        username: "hashnode",
-      },
-      {
-        id: "2735246778",
-        name: "DEV Community 👩‍💻👨‍💻",
-        profile_image_url:
-          "https://pbs.twimg.com/profile_images/1389789795065335809/A8H1fuQb_normal.jpg",
-        username: "ThePracticalDev",
-      },
-    ],
-  },
-  meta: {
-    newest_id: "1473220459260899328",
-    oldest_id: "1473192732571090946",
-    result_count: 10,
-    next_token: "b26v89c19zqg8o3fpe16lkzzu4oktqemnapsdgna81vnh",
-  },
-};
-
 let tweetsArray = [];
 let authorsArray = [];
 
+const getTwitterContent = async () => {
+  try {
+    const response = await fetch(
+      "/tweets/search/recent?query=(from%3AThePracticalDev%20OR%20from%3AfreeCodeCamp%20OR%20from%3Ahashnode%20OR%20from%3Agithub)&tweet.fields=id,text,public_metrics&expansions=author_id&user.fields=profile_image_url",
+      requestOptions
+    );
+    const responseText = await response.text();
+    return responseText;
+  } catch (error) {
+    console.log("error", error);
+  }
+};
+
+const deliverTwitterContent = async () => {
+  //   const response = await getTwitterContent();
+  //   console.log("raw data", response);
+  processTweets(exampleResponse);
+  processAuthors(exampleResponse);
+  return processTweetWithAuthor();
+};
+
 const twitterTweetFactory = (
+  id,
   retweets,
   comments,
   likes,
   author_id,
   content,
+  original,
   index
 ) => {
-  return { retweets, comments, likes, author_id, content, index };
+  return { id, retweets, comments, likes, author_id, content, original, index };
 };
 
 const authorFactory = (userName, displayName, author_id, avatar) => {
   return { userName, displayName, author_id, avatar };
 };
 
-const processTweets = () => {
-  raw.data.forEach((tweet, index) => {
+const processTweets = (response) => {
+  response["data"].forEach((tweet, index) => {
     let obj = twitterTweetFactory(
+      index + 100,
       tweet.public_metrics.retweet_count,
       tweet.public_metrics.reply_count,
       tweet.public_metrics.like_count,
       tweet.author_id,
       tweet.text,
+      true,
       index
     );
     tweetsArray.push(obj);
   });
-  console.log(tweetsArray);
 };
 
-const processAuthors = () => {
-  raw["includes"].users.forEach((author) => {
+const processAuthors = (response) => {
+  response["includes"].users.forEach((author) => {
     let obj = authorFactory(
       "@" + author.username,
       author.name,
@@ -200,12 +75,11 @@ const processAuthors = () => {
     );
     authorsArray.push(obj);
   });
-  console.log(authorsArray);
 };
 
-let processedTweets = [];
-const tweetWithAuthor = () => {
+const processTweetWithAuthor = () => {
   let matchingAuthor = [];
+  let processedTweets = [];
   authorsArray.forEach((author) => {
     matchingAuthor = tweetsArray
       .filter((tweet) => tweet.author_id === author.author_id)
@@ -215,18 +89,152 @@ const tweetWithAuthor = () => {
         tweet.avatar = author.avatar;
         return tweet;
       });
-    console.log(matchingAuthor);
     processedTweets = [...processedTweets, ...matchingAuthor];
   });
   processedTweets.sort((prev, next) => {
     return prev.index - next.index;
   });
+  return processedTweets;
 };
 
-processTweets();
-processAuthors();
-tweetWithAuthor();
-console.log(processedTweets);
+export default deliverTwitterContent;
 
-export default getTwitterContent;
-export { processedTweets };
+// below is an example response object fetched via the Twitter API
+const exampleResponse = {
+  data: [
+    {
+      author_id: "2735246778",
+      text: "I hope this helps show the potential value of wrapping modules from shared libraries.\n\n{ author: @michaelmangial1 } #DEVCommunity\nhttps://t.co/krdMes9GO5",
+      id: "1473585101812420613",
+      public_metrics: {
+        retweet_count: 2,
+        reply_count: 0,
+        like_count: 5,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "2735246778",
+      text: "It's time to create our first table with Prisma. Are you ready? Then let's go 💪\n\n{ author: @puppo92 } #DEVCommunity\nhttps://t.co/Og7sUB1E1F",
+      id: "1473570506939023364",
+      public_metrics: {
+        retweet_count: 3,
+        reply_count: 0,
+        like_count: 8,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "3957817872",
+      text: "@surajincloud Thank you for the kind words Suraj!",
+      id: "1473564626067628032",
+      public_metrics: {
+        retweet_count: 0,
+        reply_count: 0,
+        like_count: 1,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "2735246778",
+      text: "CSS variables are a very cool innovation within your styles. They make it very easy to not only write reusable styles, but update them or expand on them further down the road.\n\n{ author: @iam_timsmith } #DEVCommunity\nhttps://t.co/YULyw4fbUe",
+      id: "1473558176876437504",
+      public_metrics: {
+        retweet_count: 3,
+        reply_count: 1,
+        like_count: 16,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "2735246778",
+      text: "I'll show you how to leverage the powerful Cloudinary API to create dynamic Open Graph images and banners for your website or blog.\n\n{ author: @BraydonCoyer } #DEVCommunity\nhttps://t.co/TScBQBFwWR",
+      id: "1473557169064796161",
+      public_metrics: {
+        retweet_count: 0,
+        reply_count: 0,
+        like_count: 10,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "3957817872",
+      text: "RT @sabinthedev: My recent article on @hashnode just got featured! \n\nIf you're interested in learning about the basics of @prisma and @type…",
+      id: "1473551969453105153",
+      public_metrics: {
+        retweet_count: 6,
+        reply_count: 0,
+        like_count: 0,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "2735246778",
+      text: "Parent selectors have browser support! Let's play around and see what they can do.\n\n{ author: @fraktalisman } #DEVCommunity\nhttps://t.co/UgHYiiswM0",
+      id: "1473546349727596558",
+      public_metrics: {
+        retweet_count: 3,
+        reply_count: 0,
+        like_count: 12,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "3957817872",
+      text: "You don't want to miss the details! 🔥\n\nKeep reading at @iamaponte's post and feel free to add your tips. 👇\n\nhttps://t.co/A0TOP3DwOh",
+      id: "1473543358253514753",
+      public_metrics: {
+        retweet_count: 0,
+        reply_count: 0,
+        like_count: 4,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "3957817872",
+      text: "10. Do some management training 💪\n\nSeek out knowledge because someone else probably already figured out how to do that thing you're trying to do. This applies to management as much as it does to coding.\n\nA small bit of training goes a long way. We don't know what we don't know.",
+      id: "1473543355208544264",
+      public_metrics: {
+        retweet_count: 0,
+        reply_count: 1,
+        like_count: 0,
+        quote_count: 0,
+      },
+    },
+    {
+      author_id: "3957817872",
+      text: "9. Your team's success is your success 🏆\n\nThe focus should be on elevating your team and getting them the W's (wins). All of YOUR primary W's should actually be their's.\n\nIf your team is winning, you're winning.\n\nThe saying is \"We the best\". Not \"I'm the best\"",
+      id: "1473543352394129411",
+      public_metrics: {
+        retweet_count: 0,
+        reply_count: 1,
+        like_count: 0,
+        quote_count: 0,
+      },
+    },
+  ],
+  includes: {
+    users: [
+      {
+        username: "ThePracticalDev",
+        profile_image_url:
+          "https://pbs.twimg.com/profile_images/1389789795065335809/A8H1fuQb_normal.jpg",
+        id: "2735246778",
+        name: "DEV Community 👩‍💻👨‍💻",
+      },
+      {
+        username: "hashnode",
+        profile_image_url:
+          "https://pbs.twimg.com/profile_images/1468094435321810948/LelFxTd6_normal.jpg",
+        id: "3957817872",
+        name: "Hashnode",
+      },
+    ],
+  },
+  meta: {
+    newest_id: "1473585101812420613",
+    oldest_id: "1473543352394129411",
+    result_count: 10,
+    next_token: "b26v89c19zqg8o3fpe16ltheitf86uneqt3t6s3kz7a0t",
+  },
+};

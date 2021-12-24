@@ -79,7 +79,7 @@ const Tweet = (props) => {
           <StyledContentDiv>
             <p>
               <strong>{props.displayName}</strong>
-              &nbsp;{props.userName}&nbsp;&nbsp;{props.time}
+              &nbsp;{props.userName}
             </p>
             <p>{props.content}</p>
           </StyledContentDiv>

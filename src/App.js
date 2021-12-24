@@ -1,8 +1,7 @@
 // App.js
 
-//TODO fix modal close window listener
-//TODO likes/retweets counts on retweets
 //TODO populate feed with API
+//TODO set state as API response + content
 //TODO write tests
 //TODO styling breakpoints
 
@@ -22,7 +21,6 @@ import {
 import Start from "./Start";
 import Form from "./components/Form";
 import Home from "./components/Home";
-// import Compose from "./components/Compose";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -136,7 +134,6 @@ const App = () => {
           }
         />
         <Route path="/home" element={<Home />} />
-        {/* <Route path="/compose" element={<Compose />} /> */}
       </Routes>
     </div>
   );

@@ -17,9 +17,8 @@ import {
   query,
   arrayUnion,
 } from "firebase/firestore";
-// import { sizes, devices } from "../styling";
+import { sizes, devices } from "../styling";
 import deliverTwitterContent from "./getTwitterContent";
-import { processedTweets } from "./getTwitterContent";
 import Header from "./Header";
 import Footer from "./Footer";
 import Tweet from "./Tweet";
@@ -37,6 +36,10 @@ const Container = styled.div`
   font-family: "Roboto", "IBM Plex Sans", sans-serif;
   display: flex;
   flex-direction: column;
+
+  @media ${devices.laptop} {
+    max-width: 60vw;
+  }
 `;
 
 const StyledComposeButton = styled.div`
@@ -58,12 +61,19 @@ const StyledFeed = styled.div`
   max-height: calc(100vh - 8vh - 6vh);
   width: 100vw;
   overflow-y: auto;
+
+  @media ${devices.laptop} {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 let myTweets = [];
 
 const Home = (props) => {
   const [content, setContent] = useState(pinnedTweets);
+  const [processedTweets, setProcessedTweets] = useState([]);
   const [toggleCompose, setToggleCompose] = useState(false);
   const [userName, setUserName] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -86,9 +96,20 @@ const Home = (props) => {
       setUserName("@guest");
       setDisplayName("Guest");
     }
-    // deliverTwitterContent();
-    // add fetched content to state
   }, [user, loading]);
+
+  useEffect(() => {
+    const loadContent = async () => {
+      let data = await deliverTwitterContent();
+      setProcessedTweets(data);
+    };
+    loadContent();
+  }, []);
+
+  useEffect(() => {
+    const totalContent = [...content, ...processedTweets];
+    setContent(totalContent);
+  }, [processedTweets]);
 
   const fetchUserDb = async () => {
     try {
@@ -113,7 +134,6 @@ const Home = (props) => {
   };
 
   const handleLogout = () => {
-    console.log("logout!");
     auth.signOut();
     navigate("/");
   };
@@ -122,7 +142,6 @@ const Home = (props) => {
   const handleChange = (e) => {
     newTweet.displayName = displayName;
     newTweet.userName = userName;
-    newTweet.time = "1m";
     newTweet.content = e.target.value;
     newTweet.comments = "";
     newTweet.original = true;
@@ -273,7 +292,6 @@ const Home = (props) => {
                       avatar={each.avatar}
                       displayName={each.displayName}
                       userName={each.userName}
-                      time={each.time}
                       content={each.content}
                       comments={each.comments}
                       retweets={each.retweets}
@@ -286,7 +304,7 @@ const Home = (props) => {
                     />
                   );
                 })}
-                {processedTweets.map((each) => {
+                {/* {processedTweets.map((each) => {
                   return (
                     <Tweet
                       // tweet={each} ? can use this to access all props instead?
@@ -295,7 +313,6 @@ const Home = (props) => {
                       avatar={each.avatar}
                       displayName={each.displayName}
                       userName={each.userName}
-                      time={each.time}
                       content={each.content}
                       comments={each.comments}
                       retweets={each.retweets}
@@ -307,13 +324,13 @@ const Home = (props) => {
                       handleLike={handleLike}
                     />
                   );
-                })}
+                })} */}
               </>
             )}
             <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>
           </StyledFeed>
 
-          <Footer closeMyTweets={closeMyTweets} />
+          <Footer closeMyTweets={closeMyTweets} showMyTweets={showMyTweets} />
           {toggleModal ? (
             <Modal
               displayName={displayName}

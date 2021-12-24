@@ -2,8 +2,9 @@
 
 import React from "react";
 import styled from "styled-components";
-// import { sizes, devices } from "../styling";
-import birdhouseIcon from "../img/icons8-birdhouse-30.png";
+import { sizes, devices } from "../styling";
+import birdhouseIconW from "../img/icons8-birdhouse-50white.png";
+import birdhouseIconB from "../img/icons8-birdhouse-50black.png";
 import searchIcon from "../img/icons8-magnifying-glass-64.png";
 import bellIcon from "../img/icons8-bell-64.png";
 import mailIcon from "../img/icons8-mail-50.png";
@@ -18,6 +19,13 @@ const StyledFooter = styled.div`
   justify-content: space-around;
   border-top: 1px solid lightgrey;
   z-index: 100;
+
+  @media ${devices.laptop} {
+    position: default;
+    bottom: 0;
+    max-width: 60%;
+    margin: auto;
+  }
 `;
 
 const IconDiv = styled.div`
@@ -35,7 +43,10 @@ const Footer = (props) => {
   return (
     <StyledFooter>
       <IconDiv onClick={() => props.closeMyTweets()}>
-        <Icon src={birdhouseIcon} alt={"icon"} />
+        <Icon
+          src={props.showMyTweets ? birdhouseIconW : birdhouseIconB}
+          alt={"icon"}
+        />
       </IconDiv>
       <IconDiv>
         <Icon src={searchIcon} alt={"icon"} />
