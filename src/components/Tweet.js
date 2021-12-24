@@ -6,7 +6,8 @@ import styled from "styled-components";
 import { StyledIconsDiv, StyledSpan } from "./Compose";
 import Avatar from "./Avatar";
 import commentIcon from "../img/comment.png";
-import retweetIcon from "../img/retweet.png";
+import blackRetweetIcon from "../img/icons8-retweet-24black.png";
+import greenRetweetIcon from "../img/icons8-retweet-24green.png";
 import shareIcon from "../img/share.png";
 
 const StyledTweetContainer = styled.div`
@@ -63,7 +64,7 @@ const Tweet = (props) => {
       <StyledTweetDiv>
         {props.retweeted && !props.original && (
           <StyledRetweetDiv>
-            <img src={retweetIcon} height={15} alt="retweet" />
+            <img src={blackRetweetIcon} height={15} alt="retweet" />
             &nbsp;
             <p>You Retweeted</p>
           </StyledRetweetDiv>
@@ -92,10 +93,10 @@ const Tweet = (props) => {
         </TweetIconsDiv>
         <TweetIconsDiv>
           {props.retweeted ? (
-            <img src={retweetIcon} height={20} alt="retweet" />
+            <img src={greenRetweetIcon} height={20} alt="retweet" />
           ) : (
             <img
-              src={retweetIcon}
+              src={blackRetweetIcon}
               height={20}
               alt="retweet"
               onClick={() => props.handleRetweet(props.id)}
