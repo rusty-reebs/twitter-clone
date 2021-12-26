@@ -2,7 +2,6 @@
 
 import React from "react";
 import styled from "styled-components";
-import { devices } from "../styling";
 import { StyledIconsDiv, StyledSpan } from "./Compose";
 import Avatar from "./Avatar";
 import commentIcon from "../img/comment.png";
@@ -67,7 +66,7 @@ const Tweet = (props) => {
           <StyledRetweetDiv>
             <img src={blackRetweetIcon} height={15} alt="retweet" />
             &nbsp;
-            <p>You Retweeted</p>
+            <p data-testid="rt">You Retweeted</p>
           </StyledRetweetDiv>
         )}
         <AvatarAndContentDiv>
