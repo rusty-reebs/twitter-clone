@@ -5,7 +5,7 @@ const imageRusty = require("../img/rusty.jpg");
 
 const pinnedTweets = [
   {
-    id: 1,
+    id: 100,
     avatar: imageJeck.default,
     displayName: "jeck",
     userName: "@jeck⚡️",
@@ -16,7 +16,7 @@ const pinnedTweets = [
     likes: "10K",
   },
   {
-    id: 2,
+    id: 101,
     avatar: imageRusty.default,
     displayName: "Rusty",
     userName: "@rusty",
@@ -28,7 +28,7 @@ const pinnedTweets = [
     likes: "5K",
   },
   {
-    id: 3,
+    id: 102,
     avatar: imageRusty.default,
     displayName: "Rusty",
     userName: "@rusty",
@@ -40,7 +40,7 @@ const pinnedTweets = [
     likes: 483,
   },
   {
-    id: 4,
+    id: 103,
     avatar: imageRusty.default,
     displayName: "Rusty",
     userName: "@rusty",

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { devices } from "./styling";
+import { devices } from "../styling";
 
 const Maindiv = styled.div`
   height: 100vh;
@@ -83,7 +83,7 @@ const Footer = styled.div`
   margin-right: auto;
 `;
 
-const birdIcon = require("./img/tweeter-3.png");
+const birdIcon = require("../img/tweeter-3.png");
 
 const Start = (props) => {
   const navigate = useNavigate();

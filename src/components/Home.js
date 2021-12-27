@@ -83,7 +83,7 @@ const StyledFeed = styled.div`
 
 let myTweets = [];
 
-const Home = (props) => {
+const Home = () => {
   const [content, setContent] = useState(pinnedTweets);
   const [processedTweets, setProcessedTweets] = useState([]);
   const [toggleCompose, setToggleCompose] = useState(false);
@@ -119,9 +119,9 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    const totalContent = [...content, ...processedTweets];
+    let totalContent = [...content, ...processedTweets];
     setContent(totalContent);
-  }, [processedTweets]);
+  }, [processedTweets]); //! when user/guest logs out and new user logs in, processedTweets renders 4x
 
   const fetchUserDb = async () => {
     try {
@@ -202,11 +202,10 @@ const Home = (props) => {
       toast.error("You're a guest, you don't have any saved tweets.😥");
     } else {
       const currentUser = await fetchUserDb();
-      console.log(currentUser.tweets);
       myTweets = currentUser.tweets;
       console.log("myTweets", myTweets);
       setShowMyTweets(true);
-      document.title = "My Tweets / Tweeter";
+      document.title = "My Tweets / Tweeter"; //! this title stays when you go back to Home
     }
   };
 
@@ -245,11 +244,6 @@ const Home = (props) => {
 
   const handleLike = (id) => {
     if (!showMyTweets) {
-      // let currentTweetO = content.find(tweet => tweet.id === id);
-      // let currentTweetR = content.find(tweet => tweet.id === id + "R");
-      // let indexTweetO = content.findIndex((tweet) => tweet.id === id);
-      // let indexTweetR = content.findIndex((tweet) => tweet.id === id + "R");
-
       let currentTweet = content.find((tweet) => tweet.id === id);
       let index = content.findIndex((tweet) => tweet.id === id);
       if (typeof currentTweet.likes === "string" && currentTweet.likes === "") {
@@ -323,7 +317,6 @@ const Home = (props) => {
             )}
             <StyledComposeButton onClick={handleCompose}>+</StyledComposeButton>
           </StyledFeed>
-
           <Footer closeMyTweets={closeMyTweets} showMyTweets={showMyTweets} />
           {toggleModal ? (
             <Modal

@@ -3,7 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import { devices } from "../styling";
-import { Maindiv, Paragraph, StyledButton } from "../Start";
+import { Maindiv, Paragraph, StyledButton } from "./Start";
 
 const StyledForm = styled.form`
   padding-top: 3rem;

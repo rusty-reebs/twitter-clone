@@ -1,31 +1,40 @@
 // Tweet.test.js
 
-import { getByTestId } from "@testing-library/dom";
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Tweet from "../components/Tweet";
 
-let container = null;
-beforeEach(() => {
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
+const fakeTweet = {
+  displayName: "Mr. Fake",
+  retweeted: true,
+};
 
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
+describe("Tweet", () => {
+  test("renders tweet with display name", () => {
+    render(<Tweet displayName={fakeTweet.displayName} />);
 
-it("renders tweet with display name", () => {
-  const fakeTweet = {
-    displayName: "Mr. Fake",
-  };
-  act(() => {
-    render(<Tweet id="123" displayName={fakeTweet.displayName} />, container);
+    expect(screen.getByText("Mr. Fake")).toBeInTheDocument();
   });
-  expect(container.querySelector("strong").textContent).toBe(
-    fakeTweet.displayName
-  );
+
+  test("renders `You Retweeted` if retweeted is true", () => {
+    render(
+      <Tweet
+        displayName={fakeTweet.displayName}
+        retweeted={fakeTweet.retweeted}
+      />
+    );
+
+    expect(screen.getByText("You Retweeted")).toBeInTheDocument();
+  });
+
+  test("calls the handleLike callback handler", () => {
+    const handleLike = jest.fn();
+    render(
+      <Tweet displayName={fakeTweet.displayName} handleLike={handleLike} />
+    );
+
+    fireEvent.click(screen.getByTestId("heart"), "click");
+
+    expect(handleLike).toHaveBeenCalled();
+  });
 });

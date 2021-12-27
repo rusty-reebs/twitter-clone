@@ -111,7 +111,10 @@ const Tweet = (props) => {
           {props.liked ? (
             <StyledTweetSpan liked>favorite</StyledTweetSpan>
           ) : (
-            <StyledTweetSpan onClick={() => props.handleLike(props.id)}>
+            <StyledTweetSpan
+              data-testid={"heart"}
+              onClick={() => props.handleLike(props.id)}
+            >
               favorite_border
             </StyledTweetSpan>
           )}

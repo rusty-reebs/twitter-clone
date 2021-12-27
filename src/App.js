@@ -16,7 +16,7 @@ import {
   createUserWithEmailAndPassword,
   signInAnonymously,
 } from "firebase/auth";
-import Start from "./Start";
+import Start from "./components/Start";
 import Form from "./components/Form";
 import Home from "./components/Home";
 

@@ -22,7 +22,7 @@ const StyledFooter = styled.div`
 
   @media ${devices.laptop} {
     position: static;
-    bottom: 0;
+    margin-top: auto;
     margin-left: auto;
     margin-right: auto;
   }

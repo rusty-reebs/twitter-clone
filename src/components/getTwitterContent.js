@@ -25,11 +25,15 @@ const getTwitterContent = async () => {
 };
 
 const deliverTwitterContent = async () => {
-  //   const response = await getTwitterContent();
-  //   console.log("raw data", response);
-  processTweets(exampleResponse);
-  processAuthors(exampleResponse);
-  return processTweetWithAuthor();
+  try {
+    // const response = await getTwitterContent();
+    // console.log("raw data", response);
+    processTweets(exampleResponse);
+    processAuthors(exampleResponse);
+    return processTweetWithAuthor();
+  } catch (error) {
+    console.log("oh no", error);
+  }
 };
 
 const twitterTweetFactory = (
@@ -52,7 +56,7 @@ const authorFactory = (userName, displayName, author_id, avatar) => {
 const processTweets = (response) => {
   response["data"].forEach((tweet, index) => {
     let obj = twitterTweetFactory(
-      index + 100,
+      index + 1000,
       tweet.public_metrics.retweet_count,
       tweet.public_metrics.reply_count,
       tweet.public_metrics.like_count,
