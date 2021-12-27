@@ -1,15 +1,20 @@
 // getTwitterContent.js
 
-import myHeaders from "./tokens";
+var myHeaders = new Headers();
+myHeaders.append(
+  "Authorization",
+  "Bearer " + process.env.REACT_APP_BEARER_TOKEN
+);
+myHeaders.append(
+  "Cookie",
+  'guest_id=v1%3A164000592726401717; guest_id_ads=v1%3A164000592726401717; guest_id_marketing=v1%3A164000592726401717; personalization_id="v1_A+KUMWJFAAPekutoirSInw=="'
+);
 
 var requestOptions = {
   method: "GET",
   headers: myHeaders,
   redirect: "follow",
 };
-
-let tweetsArray = [];
-let authorsArray = [];
 
 const getTwitterContent = async () => {
   try {
@@ -55,6 +60,7 @@ const authorFactory = (userName, displayName, author_id, avatar) => {
   return { userName, displayName, author_id, avatar };
 };
 
+let tweetsArray = [];
 const processTweets = (response) => {
   response["data"].forEach((tweet, index) => {
     let obj = twitterTweetFactory(
@@ -71,6 +77,7 @@ const processTweets = (response) => {
   });
 };
 
+let authorsArray = [];
 const processAuthors = (response) => {
   response["includes"].users.forEach((author) => {
     let obj = authorFactory(

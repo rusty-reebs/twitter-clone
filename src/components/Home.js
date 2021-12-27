@@ -121,7 +121,7 @@ const Home = () => {
   useEffect(() => {
     let totalContent = [...content, ...processedTweets];
     setContent(totalContent);
-  }, [processedTweets]); //! when user/guest logs out and new user logs in, processedTweets renders 4x
+  }, [processedTweets]);
 
   const fetchUserDb = async () => {
     try {
