@@ -26,6 +26,8 @@ const getTwitterContent = async () => {
 
 const deliverTwitterContent = async () => {
   try {
+    tweetsArray = [];
+    authorsArray = [];
     // const response = await getTwitterContent();
     // console.log("raw data", response);
     processTweets(exampleResponse);
