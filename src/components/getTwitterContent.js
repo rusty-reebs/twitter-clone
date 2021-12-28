@@ -35,7 +35,10 @@ const deliverTwitterContent = async () => {
   authorsArray = [];
   try {
     // const response = await getTwitterContent();
-    const response = await fetch("../netlify/functions/getContent");
+    const response = await fetch("/netlify/functions/getContent");
+    console.log(response);
+    const responseText = await response.text();
+    console.log(responseText);
     const parsedResponse = JSON.parse(response.body);
     console.log(parsedResponse);
     processTweets(parsedResponse);
