@@ -1,9 +1,9 @@
 // getTwitterContent.js
+// "Bearer " + process.env.REACT_APP_BEARER_TOKEN
 
 var myHeaders = new Headers();
 myHeaders.append(
   "Authorization",
-  // "Bearer " + process.env.REACT_APP_BEARER_TOKEN
   "Bearer AAAAAAAAAAAAAAAAAAAAAGHyXAEAAAAAKDlLp9ZlhIBRPDfEImsiOyHzPgQ%3D8zKfoOSrCb0SX7XpRrMG3Kle6eb4cazEBKcKWcEstbQBpbvc0l"
 );
 myHeaders.append(
