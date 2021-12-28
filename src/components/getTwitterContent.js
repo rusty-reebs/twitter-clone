@@ -14,6 +14,7 @@ var requestOptions = {
   method: "GET",
   headers: myHeaders,
   redirect: "follow",
+  mode: "cors",
 };
 
 const getTwitterContent = async () => {
