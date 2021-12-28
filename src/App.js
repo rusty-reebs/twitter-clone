@@ -1,6 +1,6 @@
 // App.js
 
-//TODO populate feed with API
+//TODO analytics
 
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";

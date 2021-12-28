@@ -18,7 +18,7 @@ const pinnedTweets = [
   {
     id: 101,
     avatar: imageRusty.default,
-    displayName: "Rusty",
+    displayName: "Rusty 🌀",
     userName: "@rusty",
     content:
       "📌 Welcome to Tweeter! You can ❤️ like and re-tweet the tweets in the feed as well as compose your own.",
@@ -30,7 +30,7 @@ const pinnedTweets = [
   {
     id: 102,
     avatar: imageRusty.default,
-    displayName: "Rusty",
+    displayName: "Rusty 🌀",
     userName: "@rusty",
     content:
       "📌 If you're logged in, tap your avatar icon to see your tweets in the database.",
@@ -42,7 +42,7 @@ const pinnedTweets = [
   {
     id: 103,
     avatar: imageRusty.default,
-    displayName: "Rusty",
+    displayName: "Rusty 🌀",
     userName: "@rusty",
     content:
       "📌 Written in ⚛️React with styled components. Backend hosted on Firebase. The tweets 👇 below are retrieved via the Twitter API.",
