@@ -1,7 +1,6 @@
 // App.js
 
 //TODO populate feed with API
-//TODO write tests
 
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";

@@ -3,7 +3,8 @@
 var myHeaders = new Headers();
 myHeaders.append(
   "Authorization",
-  "Bearer " + process.env.REACT_APP_BEARER_TOKEN
+  // "Bearer " + process.env.REACT_APP_BEARER_TOKEN
+  "Bearer AAAAAAAAAAAAAAAAAAAAAGHyXAEAAAAAKDlLp9ZlhIBRPDfEImsiOyHzPgQ%3D8zKfoOSrCb0SX7XpRrMG3Kle6eb4cazEBKcKWcEstbQBpbvc0l"
 );
 myHeaders.append(
   "Cookie",
@@ -30,13 +31,13 @@ const getTwitterContent = async () => {
 };
 
 const deliverTwitterContent = async () => {
+  tweetsArray = [];
+  authorsArray = [];
   try {
-    tweetsArray = [];
-    authorsArray = [];
-    // const response = await getTwitterContent();
-    // console.log("raw data", response);
-    processTweets(exampleResponse);
-    processAuthors(exampleResponse);
+    const response = await getTwitterContent();
+    console.log("raw data", response);
+    processTweets(response);
+    processAuthors(response);
     return processTweetWithAuthor();
   } catch (error) {
     console.log("oh no", error);
