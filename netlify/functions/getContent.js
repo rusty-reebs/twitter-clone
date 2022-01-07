@@ -16,8 +16,6 @@
 const axios = require("axios");
 
 exports.handler = async function (event, context) {
-  console.log(event);
-  console.log(context);
   try {
     var config = {
       method: "get",
@@ -25,6 +23,7 @@ exports.handler = async function (event, context) {
       headers: {
         Authorization:
           "Bearer AAAAAAAAAAAAAAAAAAAAAGHyXAEAAAAAltmqJo8WCX8C4hqhkclWq90BbLw%3D3FiUQCNsveE14heUKKqLSSsH2Stzm3d21HpbtaW51fJZSPLgK3",
+        "Access-Control-Allow-Origin": "*",
       },
     };
 
@@ -52,6 +51,7 @@ exports.handler = async function (event, context) {
       statusCode: 200,
       // body: JSON.stringify(responseText),
       body: JSON.stringify(response.data),
+      // body: responseText,
     };
   } catch (error) {
     console.log("error", error);
