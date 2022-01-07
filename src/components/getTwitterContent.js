@@ -1,55 +1,17 @@
 // getTwitterContent.js
 
-// var myHeaders = new Headers();
-// myHeaders.append(
-//   "Authorization",
-//   "Bearer " + process.env.REACT_APP_BEARER_TOKEN
-// );
-// myHeaders.append(
-//   "Cookie",
-//   'guest_id=v1%3A164068932409234244; guest_id_ads=v1%3A164068932409234244; guest_id_marketing=v1%3A164068932409234244; personalization_id="v1_2jAA6E38DfBujGRnpv1CZA=="'
-// );
-
-// var requestOptions = {
-//   method: "GET",
-//   headers: myHeaders,
-//   redirect: "follow",
-// };
-
-// const getTwitterContent = async () => {
-//   try {
-//     const response = await fetch(
-//       "/2/tweets/search/recent?query=(from%3AThePracticalDev%20OR%20from%3AfreeCodeCamp%20OR%20from%3Ahashnode%20OR%20from%3Agithub)&tweet.fields=id,text,public_metrics&expansions=author_id&user.fields=profile_image_url",
-//       requestOptions
-//     );
-//     const responseText = await response.text();
-//     return responseText;
-// const response = await fetch(
-//   "/2/tweets/search/recent?query=(from%3AThePracticalDev%20OR%20from%3AfreeCodeCamp%20OR%20from%3Ahashnode%20OR%20from%3Agithub)&tweet.fields=id,text,public_metrics&expansions=author_id&user.fields=profile_image_url",
-//   requestOptions
-// );
-// const responseText = await response.text();
-// return responseText;
-// } catch (error) {
-// console.log("error", error);
-// }
-// };
-
 const deliverTwitterContent = async () => {
   tweetsArray = [];
   authorsArray = [];
   try {
-    // const response = await getTwitterContent();
     const response = await fetch("/.netlify/functions/getContent");
     const responseText = await response.text();
-    // const parsedResponse = JSON.parse(response.body);
     const parsedResponse = JSON.parse(responseText);
-    console.log(parsedResponse);
     processTweets(parsedResponse);
     processAuthors(parsedResponse);
     return processTweetWithAuthor();
   } catch (error) {
-    console.log("oh no", error);
+    console.log(error);
   }
 };
 

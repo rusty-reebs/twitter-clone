@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 import birdIcon from "../img/tweeter-3.png";
 import starsIcon from "../img/icons8-stars-32.png";
 import Avatar from "./Avatar";

@@ -6,7 +6,7 @@ import { StyledHeader, HeaderImg } from "./Header";
 import { StyledButton } from "./Start";
 import backIcon from "../img/icons8-left-24.png";
 import Avatar from "./Avatar";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 
 const StyledComposeDiv = styled.div`
   @media ${devices.laptop} {

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 
 const Maindiv = styled.div`
   height: 100vh;

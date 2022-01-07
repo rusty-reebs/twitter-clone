@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 import { Maindiv, Paragraph, StyledButton } from "./Start";
 
 const StyledForm = styled.form`

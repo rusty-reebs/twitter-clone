@@ -17,7 +17,7 @@ import {
   query,
   arrayUnion,
 } from "firebase/firestore";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 import deliverTwitterContent from "./getTwitterContent";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -202,10 +202,13 @@ const Home = () => {
       toast.error("You're a guest, you don't have any saved tweets.😥");
     } else {
       const currentUser = await fetchUserDb();
-      myTweets = currentUser.tweets;
+      if (currentUser.tweets.length === 0) {
+        toast.error("You haven't tweeted anything yet!");
+      } else {
+        myTweets = currentUser.tweets;
+      }
       console.log("myTweets", myTweets);
       setShowMyTweets(true);
-      document.title = "My Tweets / Tweeter"; //! this title stays when you go back to Home
     }
   };
 
@@ -238,7 +241,6 @@ const Home = () => {
       copyContent[index].retweeted = true;
       setContent([...copyContent]);
       setContent([currentTweet, ...content]);
-      //! go to top of feed
     } else return;
   };
 
@@ -295,7 +297,6 @@ const Home = () => {
                 {content.map((each) => {
                   return (
                     <Tweet
-                      // tweet={each} ? can use this to access all props instead?
                       key={each.id}
                       id={each.id}
                       avatar={each.avatar}

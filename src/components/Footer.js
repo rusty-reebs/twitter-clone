@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 import birdhouseIconW from "../img/icons8-birdhouse-50white.png";
 import birdhouseIconB from "../img/icons8-birdhouse-50black.png";
 import searchIcon from "../img/icons8-magnifying-glass-64.png";

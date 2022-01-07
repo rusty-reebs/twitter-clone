@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 import { StyledSpan } from "./Compose";
-import { devices } from "../styling";
+import { devices } from "../styles/styling";
 
 const ModalContainer = styled.div`
   position: fixed;
