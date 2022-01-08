@@ -102,7 +102,7 @@ const Home = () => {
     if (loading) return;
     console.log(user);
     if (!user) return navigate("/");
-    if (error) console.error(error);
+    if (error) console.error("Login error", error);
     if (!user.isAnonymous) logInUser();
     if (user.isAnonymous) {
       setUserName("@guest");

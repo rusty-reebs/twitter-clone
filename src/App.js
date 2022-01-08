@@ -1,6 +1,8 @@
 // App.js
 
 //TODO analytics
+//TODO routing/404 errors
+//TODO grey out stuff
 
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
