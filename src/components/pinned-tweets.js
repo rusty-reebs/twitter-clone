@@ -9,7 +9,7 @@ const pinnedTweets = [
     avatar: imageJeck.default,
     displayName: "jeck",
     userName: "@jeck⚡️",
-    content: "📌 just setting up my twttr",
+    content: "📌 just setting up my tweetr",
     comments: 101,
     original: true,
     retweets: "1.5K",
@@ -18,7 +18,7 @@ const pinnedTweets = [
   {
     id: 101,
     avatar: imageRusty.default,
-    displayName: "Rusty 🌀",
+    displayName: "Rusty",
     userName: "@rusty",
     content:
       "📌 Welcome to Tweeter! You can ❤️ like and re-tweet the tweets in the feed as well as compose your own.",
@@ -30,7 +30,7 @@ const pinnedTweets = [
   {
     id: 102,
     avatar: imageRusty.default,
-    displayName: "Rusty 🌀",
+    displayName: "Rusty",
     userName: "@rusty",
     content:
       "📌 If you're logged in, tap your avatar icon to see your tweets in the database.",
@@ -42,10 +42,10 @@ const pinnedTweets = [
   {
     id: 103,
     avatar: imageRusty.default,
-    displayName: "Rusty 🌀",
+    displayName: "Rusty",
     userName: "@rusty",
     content:
-      "📌 Written in ⚛️React with styled components. Database hosted on Firebase. Serverless backend with Netlify Functions. The tweets 👇 below are retrieved via the Twitter API.",
+      "📌 Written in ⚛️ React with styled components. Database hosted on Firebase. Serverless backend with Netlify Functions. The tweets 👇 below are retrieved via the Twitter API.",
     comments: "78",
     original: true,
     retweets: 619,

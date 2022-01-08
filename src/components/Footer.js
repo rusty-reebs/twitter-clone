@@ -18,6 +18,7 @@ const StyledFooter = styled.div`
   display: flex;
   justify-content: space-around;
   border-top: 1px solid lightgrey;
+  background-color: white;
   z-index: 100;
 
   @media ${devices.laptop} {
