@@ -60,7 +60,12 @@ const Header = (props) => {
         <HeaderImg src={birdIcon} height={30} alt="tweeter" />
       </HeaderDiv>
       <HeaderDiv style={{ marginRight: "0.5rem" }}>
-        <HeaderImg src={starsIcon} height={30} alt="stars" />
+        <HeaderImg
+          src={starsIcon}
+          style={{ opacity: "0.4" }}
+          height={30}
+          alt="stars"
+        />
       </HeaderDiv>
     </StyledHeader>
   );

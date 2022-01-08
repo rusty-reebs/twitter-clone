@@ -88,8 +88,13 @@ const Tweet = (props) => {
       </StyledTweetDiv>
       <StyledIconsDiv>
         <TweetIconsDiv>
-          <img src={commentIcon} height={20} alt="comment" />
-          <p>{props.comments}</p>
+          <img
+            src={commentIcon}
+            style={{ opacity: "0.4" }}
+            height={20}
+            alt="comment"
+          />
+          <p style={{ opacity: "0.4" }}>{props.comments}</p>
         </TweetIconsDiv>
         <TweetIconsDiv>
           {props.retweeted ? (
@@ -120,7 +125,12 @@ const Tweet = (props) => {
           )}
           <p>{props.likes}</p>
         </TweetIconsDiv>
-        <img src={shareIcon} height={20} alt="share" />
+        <img
+          src={shareIcon}
+          style={{ opacity: "0.4" }}
+          height={20}
+          alt="share"
+        />
       </StyledIconsDiv>
     </StyledTweetContainer>
   );

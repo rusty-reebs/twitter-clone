@@ -52,13 +52,13 @@ const Footer = (props) => {
         />
       </IconDiv>
       <IconDiv>
-        <Icon src={searchIcon} alt={"icon"} />
+        <Icon src={searchIcon} style={{ opacity: "0.4" }} alt={"icon"} />
       </IconDiv>
       <IconDiv>
-        <Icon src={bellIcon} alt={"icon"} />
+        <Icon src={bellIcon} style={{ opacity: "0.4" }} alt={"icon"} />
       </IconDiv>
       <IconDiv>
-        <Icon src={mailIcon} alt={"icon"} />
+        <Icon src={mailIcon} style={{ opacity: "0.4" }} alt={"icon"} />
       </IconDiv>
     </StyledFooter>
   );

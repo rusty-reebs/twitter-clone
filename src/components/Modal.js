@@ -95,22 +95,22 @@ const Modal = (props) => {
               <StyledSpan>chat_bubble</StyledSpan>&nbsp;&nbsp;My Tweets
             </span>
           </p>
-          <p>
+          <p style={{ opacity: "0.4" }}>
             <StyledSpan>person</StyledSpan>&nbsp;&nbsp;Profile
           </p>
-          <p>
+          <p style={{ opacity: "0.4" }}>
             <StyledSpan>view_list</StyledSpan>&nbsp;&nbsp;Lists
           </p>
-          <p>
+          <p style={{ opacity: "0.4" }}>
             <StyledSpan>bookmark</StyledSpan>&nbsp;&nbsp;Bookmarks
           </p>
-          <p>
+          <p style={{ opacity: "0.4" }}>
             <StyledSpan>flash_on</StyledSpan>&nbsp;&nbsp;Moments
           </p>
         </ModalDiv>
         <ModalDiv>
-          <p>Settings and privacy</p>
-          <p>Help Centre</p>
+          <p style={{ opacity: "0.4" }}>Settings and privacy</p>
+          <p style={{ opacity: "0.4" }}>Help Centre</p>
         </ModalDiv>
         <ModalDiv>
           <p>
