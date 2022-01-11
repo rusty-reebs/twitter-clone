@@ -45,7 +45,7 @@ const pinnedTweets = [
     displayName: "Rusty",
     userName: "@rusty",
     content:
-      "📌 Written in ⚛️ React with styled components. Database hosted on Firebase. Serverless backend with Netlify Functions. The tweets 👇 below are retrieved via the Twitter API.",
+      "📌 Written in ⚛️ React with Styled Components. Database hosted on Firebase. Serverless backend with Netlify Functions. The tweets 👇 below are retrieved via the Twitter API.",
     comments: "78",
     original: true,
     retweets: 619,
